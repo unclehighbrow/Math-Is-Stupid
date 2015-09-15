@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{5B6B6BD2-CE36-3621-0E2F-4C7FB597C48F}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+	<BaseDirectory>Assets</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_5_1_1;UNITY_5_1;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_2D_PHYSICS;ENABLE_4_6_FEATURES;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PHYSICS_PHYSX3;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_LICENSE;ENABLE_AUDIOMIXER_SUSPEND;ENABLE_EDITOR_METRICS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;ENABLE_LOCALIZATION;UNITY_IPHONE;ENABLE_RUNTIME_GI;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_NETWORK;UNITY_IPHONE_API;UNITY_IOS;ENABLE_TEXTUREID_MAP;PLAYERCONNECTION_LISTENS_FIXED_PORT;DEBUGGER_LISTENS_FIXED_PORT;ENABLE_IL2CPP;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="System.Xml.Linq" />
+	<Reference Include="UnityEngine">
+	  <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\Scripts\Background.cs" />
+     <Compile Include="Assets\Scripts\DeepThroat.cs" />
+     <Compile Include="Assets\Scripts\Destroyer.cs" />
+     <Compile Include="Assets\Scripts\FPSDisplay.cs" />
+     <Compile Include="Assets\Scripts\Flyer.cs" />
+     <Compile Include="Assets\Scripts\GameOverManager.cs" />
+     <Compile Include="Assets\Scripts\GameSingleton.cs" />
+     <Compile Include="Assets\Scripts\LevelManager.cs" />
+     <Compile Include="Assets\Scripts\Number.cs" />
+     <Compile Include="Assets\Scripts\Operand.cs" />
+     <Compile Include="Assets\Scripts\Powerup.cs" />
+     <Compile Include="Assets\Scripts\Rock.cs" />
+     <Compile Include="Assets\Scripts\Singelton.cs" />
+     <Compile Include="Assets\Scripts\TitleManager.cs" />
+     <Compile Include="Assets\Scripts\Util.cs" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Horizontal\Gradient-Palette-Horizontal-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Angular\Two Colors\Gradient-NoTexture-Angular-TwoColors-InvertedUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Angular\Gradient-MultiPalette-Angular-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\PolyhedraCollection\Shader\diamond shader.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Box4\Gradient-SingleTexture-Box4-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Diamond\Two Colors\Gradient-NoTexture-Diamond-TwoColors-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Vertical\Two Colors\Gradient-NoTexture-Vertical-TwoColors-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Vertex Color Gradient\Readme.txt" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Horizontal\Two Colors\Gradient-NoTexture-Horizontal-TwoColors-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Diamond\Two Colors\Gradient-NoTexture-Diamond-TwoColors-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Angular\Single Color\Gradient-NoTexture-Angular-SingleColor-ToTransparent-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Radial\Gradient-Palette-Radial-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Radial\Two Colors\Gradient-NoTexture-Radial-TwoColors-InvertedUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Fixed Color with Texture\Gradient-FixedColor-SingleTexture-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Texture Only\Gradient-TextureOnly-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Diamond\Single Color\Gradient-NoTexture-Diamond-SingleColor-ToTransparent-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Box4\Gradient-MultiPalette-Box4-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Box4\Gradient-SingleTexture-Box4-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Box3\Gradient-SingleTexture-Box3-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Fixed Color\Gradient-FixedColor-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Radial\Two Colors\Gradient-SingleTexture-Radial-TwoColors-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Angular\Two Colors\Gradient-NoTexture-Angular-TwoColors-RegularUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Angular\Single Color\Gradient-NoTexture-Angular-SingleColor-ToTransparent-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Vertical\Two Colors\Gradient-NoTexture-Vertical-TwoColors-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Vertical\Gradient-Palette-Vertical-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Angular\Two Colors\Gradient-NoTexture-Angular-TwoColors-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Readme.txt" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Diamond\Single Color\Gradient-SingleTexture-Diamond-SingleColor-ToTransparent-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Radial\Two Colors\Gradient-NoTexture-Radial-TwoColors-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Box3\Gradient-MultiPalette-Box3-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Readme.txt" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Box6\Gradient-SingleTexture-Box6-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Diamond\Single Color\Gradient-NoTexture-Diamond-SingleColor-ToTransparent-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Radial\Single Color\Gradient-SingleTexture-Radial-SingleColor-ToTransparent-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Vertical\Gradient-MultiPalette-Vertical-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Angular\Gradient-MultiPalette-Angular-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Angular\Two Colors\Gradient-SingleTexture-Angular-TwoColors-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Diamond\Gradient-Palette-Diamond-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Vertical\Gradient-Palette-Vertical-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Box6\Gradient-SingleTexture-Box6-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Vertex Color Gradient with Texture\Gradient-VertexColor-SingleTexture-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Vertex Color Gradient\Gradient-VertexColor-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Horizontal\Two Colors\Gradient-NoTexture-Horizontal-TwoColors-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Box6\Gradient-NoTexture-Box6-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Radial\Two Colors\Gradient-NoTexture-Radial-TwoColors-RegularUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Vertex Color Gradient with Texture\Gradient-Palette-Angular-InvertedUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Horizontal\Two Colors\Gradient-SingleTexture-Horizontal-TwoColors-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Radial\Gradient-MultiPalette-Radial-RegularUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Horizontal\Gradient-Palette-Horizontal-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Diamond\Two Colors\Gradient-NoTexture-Diamond-TwoColors-InvertedUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Angular\Two Colors\Gradient-SingleTexture-Angular-TwoColors-InvertedUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Radial\Gradient-Palette-Radial-RegularUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Radial\Gradient-Palette-Radial-InvertedUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Horizontal\Two Colors\Gradient-SingleTexture-Horizontal-TwoColors-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Diamond\Gradient-Palette-Diamond-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Angular\Two Colors\Gradient-NoTexture-Angular-TwoColors-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Vertical\Single Color\Gradient-SingleTexture-Vertical-SingleColor-ToTransparent-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Box9\Gradient-SingleTexture-Box9-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Diamond\Gradient-Palette-Diamond-InvertedUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Box3\Gradient-SingleTexture-Box3-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Radial\Gradient-MultiPalette-Radial-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Angular\Gradient-Palette-Angular-InvertedUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Diamond\Gradient-MultiPalette-Diamond-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Box9\Gradient-NoTexture-Box9-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Horizontal\Single Color\Gradient-SingleTexture-Horizontal-SingleColor-ToTransparent-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Angular\Gradient-Palette-Angular-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Angular\Gradient-MultiPalette-Angular-RegularUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Angular\Gradient-Palette-Angular-RegularUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Diamond\Single Color\Gradient-SingleTexture-Diamond-SingleColor-ToTransparent-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\PolyhedraCollection\ReadMe.txt" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Radial\Two Colors\Gradient-NoTexture-Radial-TwoColors-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Vertical\Two Colors\Gradient-SingleTexture-Vertical-TwoColors-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Box9\Gradient-SingleTexture-Box9-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Box4\Gradient-NoTexture-Box4-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Box3\Gradient-NoTexture-Box3-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Angular\Gradient-Palette-Angular-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Radial\Single Color\Gradient-NoTexture-Radial-SingleColor-ToTransparent-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Fixed Color with Texture\Readme.txt" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Angular\Single Color\Gradient-SingleTexture-Angular-SingleColor-ToTransparent-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Radial\Gradient-MultiPalette-Radial-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Angular\Gradient-MultiPalette-Angular-InvertedUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Fixed Color\Readme.txt" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Box3\Gradient-Palette-Box3-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Diamond\Two Colors\Gradient-SingleTexture-Diamond-TwoColors-InvertedUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Angular\Two Colors\Gradient-SingleTexture-Angular-TwoColors-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Radial\Gradient-MultiPalette-Radial-InvertedUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Box3\Gradient-Palette-Box3-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Box6\Gradient-NoTexture-Box6-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Diamond\Gradient-Palette-Diamond-RegularUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Radial\Two Colors\Gradient-SingleTexture-Radial-TwoColors-InvertedUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Angular\Single Color\Gradient-SingleTexture-Angular-SingleColor-ToTransparent-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Box4\Gradient-NoTexture-Box4-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Texture Only\Gradient-TextureOnly-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Readme.txt" />
+     <None Include="Assets\Gradient Shaders\Texture Only\Readme.txt" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Diamond\Two Colors\Gradient-SingleTexture-Diamond-TwoColors-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Radial\Gradient-Palette-Radial-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Box3\Gradient-MultiPalette-Box3-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Vertical\Single Color\Gradient-NoTexture-Vertical-SingleColor-ToTransparent-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Readme.txt" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Vertical\Two Colors\Gradient-SingleTexture-Vertical-TwoColors-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Radial\Two Colors\Gradient-SingleTexture-Radial-TwoColors-RegularUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Radial\Single Color\Gradient-SingleTexture-Radial-SingleColor-ToTransparent-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Diamond\Gradient-MultiPalette-Diamond-RegularUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Diamond\Two Colors\Gradient-SingleTexture-Diamond-TwoColors-RegularUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Vertex Color Gradient\Gradient-VertexColor-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Fixed Color\Gradient-FixedColor-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Diamond\Two Colors\Gradient-NoTexture-Diamond-TwoColors-RegularUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Angular\Two Colors\Gradient-SingleTexture-Angular-TwoColors-RegularUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Horizontal\Single Color\Gradient-NoTexture-Horizontal-SingleColor-ToTransparent-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Diamond\Gradient-MultiPalette-Diamond-RegularUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Fixed Color with Texture\Gradient-FixedColor-SingleTexture-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Radial\Single Color\Gradient-NoTexture-Radial-SingleColor-ToTransparent-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Horizontal\Gradient-MultiPalette-Horizontal-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Radial\Two Colors\Gradient-SingleTexture-Radial-TwoColors-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Readme.txt" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Box9\Gradient-NoTexture-Box9-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Box4\Gradient-Palette-Box4-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Diamond\Gradient-MultiPalette-Diamond-InvertedUV-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Box4\Gradient-MultiPalette-Box4-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\No-Texture Gradient\Box3\Gradient-NoTexture-Box3-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Horizontal\Gradient-MultiPalette-Horizontal-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Vertex Color Gradient with Texture\Readme.txt" />
+     <None Include="Assets\Gradient Shaders\Multi-Palette Gradient\Vertical\Gradient-MultiPalette-Vertical-SolidBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Single Texture with Gradient\Diamond\Two Colors\Gradient-SingleTexture-Diamond-TwoColors-InvertedUV-AlphaBlend.shader" />
+     <None Include="Assets\Gradient Shaders\Palette Gradient\Box4\Gradient-Palette-Box4-AlphaBlend.shader" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+ <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	   Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>
