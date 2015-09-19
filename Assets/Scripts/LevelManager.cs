@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour {
 	public string currentOperand;
 	public int currentTotal;
 	public int secondVarHolder;
-	int[] goals = {0,0,0};
+	public int[] goals = {0,0,0,0};
 
 	public delegate int DoMath(int x, int y);
 	public static Dictionary<string,LevelManager.DoMath> operandMap;
@@ -70,7 +70,9 @@ public class LevelManager : MonoBehaviour {
 		foreach (string powerup in Powerup.powerups) {
 			powerupTimers.Add(powerup, 0);
 		}
-		
+
+		goalTexts[3].CrossFadeAlpha(0f, 0f, false);
+
 		StartCoroutine(GenerateGoals());
 		ResetTimer();
 	}
@@ -139,7 +141,7 @@ public class LevelManager : MonoBehaviour {
 	void CheckGoal() {
 		for (int i = 0; i < goals.Length; i++) {
 			int goal = goals[i];
-			if (!goalMet) {
+			if (goal != 0 && !goalMet) {
 				if ((IsPowerupActive(Powerup.roundBy2) && Util.between(goal, currentTotal - 2, currentTotal + 2)) 
 				    || currentTotal == goal) {
 					StartCoroutine(GoalMet(i));
@@ -150,6 +152,7 @@ public class LevelManager : MonoBehaviour {
 
 	IEnumerator GoalMet(int i) {
 		goalMet = true;
+		StartCoroutine(Glow(calcText));
 		yield return StartCoroutine(Glow(goalTexts[i]));
 		StartCoroutine(GenerateGoals());
 		GameSingleton.Instance.score += Mathf.FloorToInt(timer) * 10;
@@ -159,16 +162,21 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public IEnumerator GenerateGoals() {
-		int goalCount = 2; //IsPowerupActive(Powerup.moreGoals) ? 3 : 2;
+		int goalCount = IsPowerupActive(Powerup.moreGoals) ? 3 : 2;
 		for (int i = 0; i <= goalCount; i++) {
-			int goal = 0;
-			while (goal == 0 || Array.IndexOf(goals, goal) > -1) {
-				goal = UnityEngine.Random.Range(minGoal, maxGoal);
-			}
+			int goal = GenerateGoal();
 			goalTexts[i].text = goal.ToString();
 			goals[i] = goal;
 		}
 		yield return null;
+	}
+
+	public int GenerateGoal() {
+		int goal = 0;
+		while (goal == 0 || Array.IndexOf(goals, goal) > -1) {
+			goal = UnityEngine.Random.Range(minGoal, maxGoal);
+		}
+		return goal;
 	}
 
 	IEnumerator Glow(Text text) {
@@ -240,16 +248,18 @@ public class LevelManager : MonoBehaviour {
 
 	void ActivatePowerup(string powerup) {
 		powerupTimers[powerup] += 15;
-		if (powerup == Powerup.moreGoals) { // TODO: make animation and make this work cause it doesn't work with arrays
-			goalTexts[3].enabled = true;
-			goalTexts[3].text = "5";
-			goals[3] = 5;
+		if (powerup == Powerup.moreGoals) { 
+			goalTexts[3].CrossFadeAlpha(1f, 0f, false);
+			int goal = GenerateGoal();
+			goalTexts[3].text = goal.ToString();
+			goals[3] = goal;
+			Glow(goalTexts[3]);
 		}
 	}
 
 	void DeactivatePowerup(string powerup) {
 		if (powerup == Powerup.moreGoals) {
-			goalTexts[3].enabled = false;
+			goalTexts[3].CrossFadeAlpha(0, 1, false);
 			goals[3] = 0;
 		}
 	}
