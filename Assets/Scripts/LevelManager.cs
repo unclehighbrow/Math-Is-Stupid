@@ -193,7 +193,7 @@ public class LevelManager : MonoBehaviour {
 			}
 			outline.effectDistance = Vector2.zero;
 			outline.enabled = false;
-		}
+		} 
 		yield return null;
 	}
 
@@ -230,6 +230,7 @@ public class LevelManager : MonoBehaviour {
 			foreach (Text iOperand in operands.GetComponentsInChildren<Text>()) {
 				if (iOperand.text.Equals(operand)) {
 					iOperand.color = Color.yellow;
+					StartCoroutine(Glow(iOperand));
 				} else {
 					iOperand.color = Color.white;
 				}
@@ -253,7 +254,7 @@ public class LevelManager : MonoBehaviour {
 			int goal = GenerateGoal();
 			goalTexts[3].text = goal.ToString();
 			goals[3] = goal;
-			Glow(goalTexts[3]);
+			StartCoroutine(Glow(goalTexts[3]));
 		}
 	}
 
