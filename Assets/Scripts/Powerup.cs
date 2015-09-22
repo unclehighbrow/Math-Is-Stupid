@@ -13,10 +13,6 @@ public class Powerup : Flyer {
 	// unimplemented
 	public static string longerPowerups = "Longer powerups";
 	public static string perfectNumbers = "Perfect numbers";
-	public static string operandAutopilot = "Operand autopilot";
-	public static string morePowerups = "More powerups";
-	public static string zoomOut = "Zoom out";
-
 
 	public static List<string> powerups = new List<string>() {
 		invinciblity, slowDownTimer, unlimitedTimeJuice, roundBy2, moreGoals

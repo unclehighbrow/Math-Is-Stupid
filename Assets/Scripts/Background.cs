@@ -15,6 +15,9 @@ public class Background : MonoBehaviour {
 		rend = GetComponent<Renderer>();
 		levelManager = GameObject.FindObjectOfType<LevelManager>();
 		starsStartPos = stars.transform.position;
+		rend.material.SetTexture("_PaletteTex2", textures[Random.Range(0,textures.Length)]);
+		transform.position = new Vector3(levelManager.maxX + rend.bounds.size.x, transform.position.y, transform.position.z);
+		timeTilScroll = 7;
 	}
 	
 	// Update is called once per frame
