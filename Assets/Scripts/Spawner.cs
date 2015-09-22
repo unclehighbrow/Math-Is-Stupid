@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour {
 
@@ -13,25 +14,36 @@ public class Spawner : MonoBehaviour {
 	public float powerupFrequency;
 	public float numberFrequency;
 
-	public float flyerFrequency;
-
 	// Use this for initialization
 	void Start () {
-		StartCoroutine("GenerateFlyers");
+		StartCoroutine("GenerateNumbers");
+		StartCoroutine("GenerateRocks");
+		StartCoroutine("GeneratePowerups");
+
 	}
-	
-	IEnumerator GenerateFlyers() {
+
+	IEnumerator GenerateNumbers() {
 		while (true) {
-			int randomNumber = UnityEngine.Random.Range(0, 25);
-			if (randomNumber < 15) {
-				Instantiate(numberPrefab);
-			} else if (randomNumber == 19) {
-				Instantiate(powerupPrefab);
-			} else {
-				Instantiate(rockPrefab);
-			}
-			float secondsToWait = UnityEngine.Random.Range(0f, flyerFrequency);
-			yield return new WaitForSeconds(secondsToWait);
+			Instantiate(numberPrefab);
+			yield return new WaitForSeconds(UnityEngine.Random.Range(0f, numberFrequency));
 		}
 	}
+
+	IEnumerator GenerateRocks() {
+		yield return new WaitForSeconds(5);
+		while (true) {
+			Instantiate(rockPrefab);
+			yield return new WaitForSeconds(UnityEngine.Random.Range(0f, rockFrequency));
+		}
+	}
+
+	IEnumerator GeneratePowerups() {
+		yield return new WaitForSeconds(10);
+		while (true) {
+			Instantiate(powerupPrefab);
+			yield return new WaitForSeconds(UnityEngine.Random.Range(5f, powerupFrequency));
+		}
+	}
+
+
 }
