@@ -31,6 +31,7 @@ public class LevelManager : MonoBehaviour {
 	public Text timerText;
 	public Slider energySlider;
 	public Text powerupDisplay;
+	public CanvasGroup pausePanel;
 	
 	public float startTimer;
 	public float timer;
@@ -72,6 +73,7 @@ public class LevelManager : MonoBehaviour {
 		}
 
 		goalTexts[3].CrossFadeAlpha(0f, 0f, false);
+		pausePanel = GameObject.Find("PausePanel").GetComponent<CanvasGroup>();
 
 		StartCoroutine(GenerateGoals());
 		ResetTimer();
@@ -312,4 +314,23 @@ public class LevelManager : MonoBehaviour {
 		performingOperation = false;
 		yield return null;
 	}
+
+	public void Pause() {
+		Time.timeScale = 0;
+		pausePanel.alpha = 1;
+		pausePanel.blocksRaycasts = true;
+	}
+
+	public void Resume() {
+		pausePanel.alpha = 0;
+		pausePanel.blocksRaycasts = false;
+		Time.timeScale = 1;
+	}
+	
+	void OnApplicationPause(bool pauseStatus) {
+		if (pauseStatus) {
+			Pause();
+		}
+	}
+
 }
