@@ -14,12 +14,28 @@ public class Spawner : MonoBehaviour {
 	public float powerupFrequency;
 	public float numberFrequency;
 
+	public float flyerSpeed = 1f;
+
+	float startTimer = 20f;
+	float timer; 
+
 	// Use this for initialization
 	void Start () {
 		StartCoroutine("GenerateNumbers");
 		StartCoroutine("GenerateRocks");
 		StartCoroutine("GeneratePowerups");
+		timer = startTimer;
+	}
 
+	void Update() {
+		timer -= Time.deltaTime;
+		if (timer < 0) {
+			timer = startTimer;
+			startTimer-= 2;
+			rockFrequency += .15f;
+			numberFrequency += .1f;
+			flyerSpeed += .04f;
+		}
 	}
 
 	IEnumerator GenerateNumbers() {
