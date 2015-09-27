@@ -60,7 +60,6 @@
      <Compile Include="Assets\Scripts\Rock.cs" />
      <Compile Include="Assets\Scripts\Singelton.cs" />
      <Compile Include="Assets\Scripts\Spawner.cs" />
-     <Compile Include="Assets\Scripts\TitleManager.cs" />
      <Compile Include="Assets\Scripts\Util.cs" />
      <None Include="Assets\Third Party\Gradient Shaders\Palette Gradient\Horizontal\Gradient-Palette-Horizontal-AlphaBlend.shader" />
      <None Include="Assets\Third Party\Gradient Shaders\No-Texture Gradient\Angular\Two Colors\Gradient-NoTexture-Angular-TwoColors-InvertedUV-SolidBlend.shader" />

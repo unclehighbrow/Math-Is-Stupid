@@ -6,7 +6,7 @@ public class DeepThroat : MonoBehaviour {
 	public Vector2 destination;
 	Animator animator;
 	public bool dead = false;
-	float speed = .15f;
+	public float speed = .15f;
 
 	// Use this for initialization
 	void Start () {

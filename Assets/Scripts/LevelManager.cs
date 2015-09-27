@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour {
 	
 	public DeepThroat deepThroat;
+	public Spawner spawner;
+	public GameObject deepThroatPrefab;
+	public InputManager inputManager;
 
 	public int minGoal;
 	public int maxGoal;
@@ -31,7 +34,10 @@ public class LevelManager : MonoBehaviour {
 	public Text timerText;
 	public Slider energySlider;
 	public Text powerupDisplay;
+
 	public CanvasGroup pausePanel;
+	public CanvasGroup gameCanvas;
+	public CanvasGroup titleCanvas;
 	
 	public float startTimer;
 	public float timer;
@@ -52,9 +58,12 @@ public class LevelManager : MonoBehaviour {
 
 	Dictionary<string,float> powerupTimers = new Dictionary<string, float>();
 
+	public bool gameStarted = false;
+
 	// Use this for initialization
 	void Start () {
 		deepThroat = GameObject.FindObjectOfType<DeepThroat>();
+		inputManager = GameObject.FindObjectOfType<InputManager>(); 
 		operandMap = new Dictionary<string,DoMath>() {
 			{"+", (x,y) => { return x + y; }},
 			{"-", (x,y) => { return x - y; }},
@@ -67,34 +76,33 @@ public class LevelManager : MonoBehaviour {
 		}
 		calcText.text = "0";
 		powerupDisplay.text = "";
-
-		foreach (string powerup in Powerup.powerups) {
-			powerupTimers.Add(powerup, 0);
-		}
-
 		goalTexts[3].CrossFadeAlpha(0f, 0f, false);
-		pausePanel = GameObject.Find("PausePanel").GetComponent<CanvasGroup>();
-
-		StartCoroutine(GenerateGoals());
-		ResetTimer();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		CheckGoal();
-		UpdateScore();
-		UpdateTimers();
+		if (gameStarted) {
+			CheckGoal();
+			UpdateScore();
+			UpdateTimers();
+		}
 	}
 
 	IEnumerator GameOver() {
 		if (invincible) {
 			yield return null;
 		} else {
+			gameStarted = false;
 			deepThroat.dead = true;
-			deepThroat.GetComponent<Rigidbody2D>().AddForce(new Vector2(30, -50));
-			deepThroat.GetComponent<Rigidbody2D>().AddTorque(-3);
-			yield return new WaitForSeconds(2);
-			Application.LoadLevel("GameOver");
+			spawner.StopGame();
+			deepThroat.GetComponent<Rigidbody2D>().AddForce(new Vector2(300, -500));
+			deepThroat.GetComponent<Rigidbody2D>().AddTorque(-30);
+			yield return new WaitForSeconds(1.5f);
+			yield return StartCoroutine(FadeInFadeOutCanvas(titleCanvas, gameCanvas));
+			Destroy (deepThroat);
+			deepThroat = Instantiate(deepThroatPrefab).GetComponent<DeepThroat>();
+			deepThroat.transform.position = new Vector2(-10, 0);
+			inputManager.deepThroat = deepThroat;
 			yield return null;
 		}
 	}
@@ -102,7 +110,7 @@ public class LevelManager : MonoBehaviour {
 	void UpdateTimers() {
 		if (timer <= 0f) {
 			StartCoroutine(GameOver());
-			timer = 0;
+			timer = 0f;
 		} else if (IsPowerupActive(Powerup.slowDownTimer)) {
 			timer -= (Time.deltaTime/3);
 		} else {
@@ -133,10 +141,10 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	void UpdateScore() {
-		int currentDisplay = Convert.ToInt16(scoreText.text);
+		int currentDisplay = Convert.ToInt32(scoreText.text);
 		if (GameSingleton.Instance.score > currentDisplay) {
 			string scoreString = (currentDisplay + 10).ToString();
-			scoreText.text = scoreString.PadLeft( 5, '0');
+			scoreText.text = scoreString.PadLeft(5, '0');
 		}
 	}
 
@@ -316,10 +324,12 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void Pause() {
-		Time.timeScale = 0;
-		pausePanel.alpha = 1;
-		pausePanel.blocksRaycasts = true;
-	}
+		if (gameStarted) {
+			Time.timeScale = 0;
+			pausePanel.alpha = 1;
+			pausePanel.blocksRaycasts = true;
+		}
+	}	
 
 	public void Resume() {
 		pausePanel.alpha = 0;
@@ -330,6 +340,39 @@ public class LevelManager : MonoBehaviour {
 	void OnApplicationPause(bool pauseStatus) {
 		if (pauseStatus) {
 			Pause();
+		}
+	}
+
+	public void StartGame() {		
+		StartCoroutine("StartGameCo");
+	}
+
+	IEnumerator StartGameCo() {		
+		timerText.text = "90:00";
+		foreach (string powerup in Powerup.powerups) {
+			powerupTimers[powerup] = 0;
+		}
+		StartCoroutine(GenerateGoals());
+		ResetTimer();
+		GameSingleton.Instance.score = 0;
+		StartCoroutine(FadeInFadeOutCanvas(gameCanvas, titleCanvas));
+		Vector2 destination = new Vector2(-5.5f,0f);
+		while ((Vector2)deepThroat.transform.position != destination) {
+			Vector2 p = Vector2.MoveTowards(deepThroat.transform.position, destination, deepThroat.speed/3f);
+			deepThroat.GetComponent<Rigidbody2D>().MovePosition(p);
+			yield return new WaitForEndOfFrame();
+		}
+		yield return new WaitForSeconds(1);
+		spawner.StartGame();
+		gameStarted = true;
+		yield return null;
+	}
+
+	IEnumerator FadeInFadeOutCanvas(CanvasGroup fadeIn, CanvasGroup fadeOut) {
+		while (fadeIn.alpha < 1) {
+			fadeIn.alpha += .01f;
+			fadeOut.alpha -= .01f;
+			yield return new WaitForSeconds(.01f);
 		}
 	}
 

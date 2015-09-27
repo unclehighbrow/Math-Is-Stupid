@@ -13,28 +13,45 @@ public class Spawner : MonoBehaviour {
 	public float rockFrequency;
 	public float powerupFrequency;
 	public float numberFrequency;
-
 	public float flyerSpeed = 1f;
-
-	float startTimer = 20f;
 	float timer; 
+
+	public float startRockFrequency;
+	public float startPowerupFrequency;
+	public float startNumberFrequency;
+	public float startFlyerSpeed;
+	float startTimer = 20f;
+	float startStartTimer = 20f;
 
 	// Use this for initialization
 	void Start () {
+	}
+
+	public void StartGame() {
 		StartCoroutine("GenerateNumbers");
 		StartCoroutine("GenerateRocks");
 		StartCoroutine("GeneratePowerups");
-		timer = startTimer;
+		timer = startStartTimer;
+		flyerSpeed = startFlyerSpeed;
+		rockFrequency = startRockFrequency;
+		powerupFrequency = startPowerupFrequency;
+		numberFrequency = startNumberFrequency;
+	}
+
+	public void StopGame() {
+		StopAllCoroutines();
 	}
 
 	void Update() {
-		timer -= Time.deltaTime;
-		if (timer < 0) {
-			timer = startTimer;
-			startTimer-= 2;
-			rockFrequency += .15f;
-			numberFrequency += .1f;
-			flyerSpeed += .04f;
+		if (levelManager.gameStarted) {
+			timer -= Time.deltaTime;
+			if (timer < 0) {
+				timer = startTimer;
+				startTimer-= 2;
+				rockFrequency += .15f;
+				numberFrequency += .1f;
+				flyerSpeed += .04f;
+			}
 		}
 	}
 

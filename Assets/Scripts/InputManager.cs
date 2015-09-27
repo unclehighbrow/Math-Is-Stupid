@@ -13,7 +13,7 @@ public class InputManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Time.timeScale < 1) {
+		if (Time.timeScale < 1 || !levelManager.gameStarted) {
 			return;
 		}
 		Vector2 destination = Vector2.zero;

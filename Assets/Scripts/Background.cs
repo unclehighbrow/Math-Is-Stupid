@@ -15,7 +15,6 @@ public class Background : MonoBehaviour {
 		rend = GetComponent<Renderer>();
 		levelManager = GameObject.FindObjectOfType<LevelManager>();
 		starsStartPos = stars.transform.position;
-		rend.material.SetTexture("_PaletteTex2", textures[Random.Range(0,textures.Length)]);
 		transform.position = new Vector3(levelManager.maxX + rend.bounds.size.x, transform.position.y, transform.position.z);
 		timeTilScroll = 7;
 	}
@@ -29,7 +28,8 @@ public class Background : MonoBehaviour {
 			Vector3 pos = new Vector3(transform.position.x - .5f, transform.position.y, transform.position.z);
 			transform.position = pos;
 			if (transform.position.x < 0 && !rend.isVisible) { // reset to right, change second texture
-				rend.material.SetTexture("_PaletteTex2", textures[Random.Range(0,textures.Length)]);
+				Texture texture = textures[Random.Range(0,textures.Length)];
+				rend.material.SetTexture("_PaletteTex", texture);
 				transform.position = new Vector3(levelManager.maxX + rend.bounds.size.x, transform.position.y, transform.position.z);
 				scrollTimer = 0;
 			} else if (transform.position.x == 0) { // back to waiting
