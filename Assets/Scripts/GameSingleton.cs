@@ -15,7 +15,7 @@ public class GameSingleton : Singleton<GameSingleton> {
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		highScore = PlayerPrefs.GetInt("highScore", 0);
 		Social.localUser.Authenticate(ProcessAuthentication);
 	}
@@ -37,14 +37,10 @@ public class GameSingleton : Singleton<GameSingleton> {
 		if (loggedIn) {
 			Social.LoadScores(leaderboard, scores => {
 				if (scores.Length > 0) {
-					Debug.Log ("Got " + scores.Length + " scores");
 					string myScores = "Leaderboard:\n";
 					foreach (IScore score in scores)
 						myScores += "\t" + score.userID + " " + score.formattedValue + " " + score.date + "\n";
-					Debug.Log (myScores);
 				}
-				else
-					Debug.Log ("No scores loaded");
 			});
 		}
 	}

@@ -34,6 +34,7 @@ public class LevelManager : MonoBehaviour {
 	public Text timerText;
 	public Slider energySlider;
 	public Text powerupDisplay;
+	public Text highScoreText;
 
 	public CanvasGroup pausePanel;
 	public CanvasGroup gameCanvas;
@@ -62,6 +63,7 @@ public class LevelManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//PlayerPrefs.DeleteAll();
 		deepThroat = GameObject.FindObjectOfType<DeepThroat>();
 		inputManager = GameObject.FindObjectOfType<InputManager>(); 
 		operandMap = new Dictionary<string,DoMath>() {
@@ -77,6 +79,11 @@ public class LevelManager : MonoBehaviour {
 		calcText.text = "0";
 		powerupDisplay.text = "";
 		goalTexts[3].CrossFadeAlpha(0f, 0f, false);
+		if (GameSingleton.Instance.highScore > 0) {
+			highScoreText.text = "high " + GameSingleton.Instance.highScore.ToString().PadLeft(5, '0');
+		} else {
+			highScoreText.text = "";
+		}
 	}
 	
 	// Update is called once per frame
@@ -103,6 +110,8 @@ public class LevelManager : MonoBehaviour {
 			deepThroat = Instantiate(deepThroatPrefab).GetComponent<DeepThroat>();
 			deepThroat.transform.position = new Vector2(-10, 0);
 			inputManager.deepThroat = deepThroat;
+			GameSingleton.Instance.RecordScore();
+			highScoreText.text = "high " + GameSingleton.Instance.highScore.ToString().PadLeft(5, '0');
 			yield return null;
 		}
 	}
@@ -348,13 +357,14 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	IEnumerator StartGameCo() {		
-		timerText.text = "90:00";
+		ResetTimer();
+		timerText.text = timer.ToString("F2");
 		foreach (string powerup in Powerup.powerups) {
 			powerupTimers[powerup] = 0;
 		}
 		StartCoroutine(GenerateGoals());
-		ResetTimer();
 		GameSingleton.Instance.score = 0;
+		scoreText.text = "00000";
 		StartCoroutine(FadeInFadeOutCanvas(gameCanvas, titleCanvas));
 		Vector2 destination = new Vector2(-5.5f,0f);
 		while ((Vector2)deepThroat.transform.position != destination) {
