@@ -47,10 +47,14 @@ public class Spawner : MonoBehaviour {
 			timer -= Time.deltaTime;
 			if (timer < 0) {
 				timer = startTimer;
-				startTimer-= 2;
-				rockFrequency += .15f;
-				numberFrequency += .1f;
-				flyerSpeed += .04f;
+				startTimer -= .7f;
+				if (startTimer < 5) {
+					startTimer = 5f;
+				}
+				rockFrequency -= .2f;
+				numberFrequency -= .1f;
+				powerupFrequency += .2f;
+				flyerSpeed += .03f;
 			}
 		}
 	}

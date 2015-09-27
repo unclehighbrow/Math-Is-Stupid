@@ -78,7 +78,6 @@ public class LevelManager : MonoBehaviour {
 		}
 		calcText.text = "0";
 		powerupDisplay.text = "";
-		goalTexts[3].CrossFadeAlpha(0f, 0f, false);
 		if (GameSingleton.Instance.highScore > 0) {
 			highScoreText.text = "high " + GameSingleton.Instance.highScore.ToString().PadLeft(5, '0');
 		} else {
@@ -174,7 +173,7 @@ public class LevelManager : MonoBehaviour {
 		StartCoroutine(Glow(calcText));
 		yield return StartCoroutine(Glow(goalTexts[i]));
 		StartCoroutine(GenerateGoals());
-		GameSingleton.Instance.score += Mathf.FloorToInt(timer) * 10;
+		GameSingleton.Instance.score += 1000;
 		timer += goalAddend;
 		goalMet = false;
 		yield return null;
@@ -356,7 +355,9 @@ public class LevelManager : MonoBehaviour {
 		StartCoroutine("StartGameCo");
 	}
 
-	IEnumerator StartGameCo() {		
+	IEnumerator StartGameCo() {	
+		goalTexts[3].CrossFadeAlpha(0, 1, false);
+		goals[3] = 0;
 		ResetTimer();
 		timerText.text = timer.ToString("F2");
 		foreach (string powerup in Powerup.powerups) {
