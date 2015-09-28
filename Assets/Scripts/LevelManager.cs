@@ -76,8 +76,6 @@ public class LevelManager : MonoBehaviour {
 		foreach (KeyValuePair<string,DoMath> kvp in operandMap)  {
 			operandList.Add(kvp.Key);
 		}
-		calcText.text = "0";
-		powerupDisplay.text = "";
 		if (GameSingleton.Instance.highScore > 0) {
 			highScoreText.text = "high " + GameSingleton.Instance.highScore.ToString().PadLeft(5, '0');
 		} else {
@@ -273,6 +271,8 @@ public class LevelManager : MonoBehaviour {
 			goalTexts[3].text = goal.ToString();
 			goals[3] = goal;
 			StartCoroutine(Glow(goalTexts[3]));
+		} else if (powerup == Powerup.invinciblity) {
+			deepThroat.animator.SetBool("invincible", true);
 		}
 	}
 
@@ -280,6 +280,8 @@ public class LevelManager : MonoBehaviour {
 		if (powerup == Powerup.moreGoals) {
 			goalTexts[3].CrossFadeAlpha(0, 1, false);
 			goals[3] = 0;
+		} else if (powerup == Powerup.invinciblity) {
+			deepThroat.animator.SetBool("invincible", false);
 		}
 	}
 
@@ -356,9 +358,15 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	IEnumerator StartGameCo() {	
+		calcText.text = "0";
+		powerupDisplay.text = "";
+		currentOperand = "";
+		currentTotal = 0;
+		secondVarHolder = 0;
 		goalTexts[3].CrossFadeAlpha(0, 1, false);
 		goals[3] = 0;
 		ResetTimer();
+		energySlider.value = 1f;
 		timerText.text = timer.ToString("F2");
 		foreach (string powerup in Powerup.powerups) {
 			powerupTimers[powerup] = 0;

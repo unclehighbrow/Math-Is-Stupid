@@ -4,7 +4,7 @@ using System.Collections;
 public class DeepThroat : MonoBehaviour {
 	public LevelManager levelManager;
 	public Vector2 destination;
-	Animator animator;
+	public Animator animator;
 	public bool dead = false;
 	public float speed = .15f;
 
@@ -34,8 +34,14 @@ public class DeepThroat : MonoBehaviour {
 			if (destination != Vector2.zero && (Vector2)transform.position != destination) { // go to destination
 				Vector2 p = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, destination.y), speed);
 				GetComponent<Rigidbody2D>().MovePosition(p);
+				if (destination.y > transform.position.y) {
+					animator.SetInteger("direction", 1);
+				} else {
+					Debug.Log ("going down");
+				}
 			} else {
 				GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+				animator.SetInteger("direction", 0);
 			}
 		}
 	}

@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: f7eba30a9cc98478388d8ac07431b2d4
-timeCreated: 1437966766
+timeCreated: 1443455203
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: DeepThroat_0
+    21300002: DeepThroat_1
+    21300004: DeepThroat_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -38,6 +40,7 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
+  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -53,10 +56,30 @@ TextureImporter:
     - name: DeepThroat_0
       rect:
         serializedVersion: 2
-        x: 24
-        y: 977
-        width: 25
-        height: 26
+        x: 0
+        y: 992
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DeepThroat_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 992
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DeepThroat_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 992
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
