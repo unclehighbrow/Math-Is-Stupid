@@ -71,10 +71,6 @@ public class LevelManager : MonoBehaviour {
 		return (Vector2)resolution;
 	}
 
-	void Awake() {
-
-	}
-
 	// Use this for initialization
 	void Start () {
 		//PlayerPrefs.DeleteAll();
