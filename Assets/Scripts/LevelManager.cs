@@ -39,7 +39,9 @@ public class LevelManager : MonoBehaviour {
 	public CanvasGroup pausePanel;
 	public CanvasGroup gameCanvas;
 	public CanvasGroup titleCanvas;
-	
+
+	public Canvas canvas;
+
 	public float startTimer;
 	public float timer;
 	public float goalAddend;
@@ -60,6 +62,18 @@ public class LevelManager : MonoBehaviour {
 	Dictionary<string,float> powerupTimers = new Dictionary<string, float>();
 
 	public bool gameStarted = false;
+
+	private Vector2 GetGameView() {
+		System.Type T = System.Type.GetType("UnityEditor.GameView,UnityEditor");
+		System.Reflection.MethodInfo getSizeOfMainGameView =
+			T.GetMethod("GetSizeOfMainGameView",System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+		System.Object resolution = getSizeOfMainGameView.Invoke(null, null);
+		return (Vector2)resolution;
+	}
+
+	void Awake() {
+
+	}
 
 	// Use this for initialization
 	void Start () {

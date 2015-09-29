@@ -37,7 +37,7 @@ public class DeepThroat : MonoBehaviour {
 				if (destination.y > transform.position.y) {
 					animator.SetInteger("direction", 1);
 				} else {
-					Debug.Log ("going down");
+					animator.SetInteger("direction", -1);
 				}
 			} else {
 				GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -48,12 +48,14 @@ public class DeepThroat : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col) {
 		if (!dead) {
-			if (col.gameObject.CompareTag("Number")) {
-				levelManager.HandleNumber(col.gameObject.GetComponent<Number>().number);
-			} else if (col.gameObject.CompareTag("Rock")) {
-				levelManager.HandleRock();
-			} else if (col.gameObject.CompareTag("Powerup")) {
-				levelManager.HandlePowerup(col.gameObject.GetComponent<Powerup>().powerup);
+			if (levelManager != null) {
+				if (col.gameObject.CompareTag("Number")) {
+					levelManager.HandleNumber(col.gameObject.GetComponent<Number>().number);
+				} else if (col.gameObject.CompareTag("Rock")) {
+					levelManager.HandleRock();
+				} else if (col.gameObject.CompareTag("Powerup")) {
+					levelManager.HandlePowerup(col.gameObject.GetComponent<Powerup>().powerup);
+				}
 			}
 			Destroy(col.gameObject);
 		}

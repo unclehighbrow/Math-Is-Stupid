@@ -1,14 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Spawner.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/TutorialManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/LevelManager.cs" Line="101" Column="11" />
-      <File FileName="Assets/Scripts/Spawner.cs" Line="52" Column="22" />
-      <File FileName="Assets/Scripts/InputManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/LevelManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/DeepThroat.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Destroyer.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameOverManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameSingleton.cs" Line="48" Column="2" />
+      <File FileName="Assets/Scripts/TutorialManager.cs" Line="94" Column="1" />
+      <File FileName="Assets/Scripts/InputManager.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

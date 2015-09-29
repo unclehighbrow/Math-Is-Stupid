@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: f7eba30a9cc98478388d8ac07431b2d4
-timeCreated: 1443455203
+guid: f205900f737a14f93bdd0018a65f4704
+timeCreated: 1443465547
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: DeepThroat_0
-    21300002: DeepThroat_1
-    21300004: DeepThroat_2
+    21300000: Pointer
+    21300002: nixon open
+    21300004: nixon closed
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -53,33 +53,33 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: DeepThroat_0
+    - name: Pointer
       rect:
         serializedVersion: 2
-        x: 0
-        y: 992
-        width: 32
-        height: 32
+        x: 2
+        y: 1006
+        width: 14
+        height: 16
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: DeepThroat_1
+    - name: nixon open
       rect:
         serializedVersion: 2
-        x: 32
-        y: 992
-        width: 32
-        height: 32
+        x: 24
+        y: 987
+        width: 30
+        height: 34
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: DeepThroat_2
+    - name: nixon closed
       rect:
         serializedVersion: 2
-        x: 64
-        y: 992
-        width: 32
-        height: 32
+        x: 55
+        y: 987
+        width: 30
+        height: 34
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
