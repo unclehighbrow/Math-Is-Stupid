@@ -62,6 +62,7 @@ public class LevelManager : MonoBehaviour {
 	Dictionary<string,float> powerupTimers = new Dictionary<string, float>();
 
 	public bool gameStarted = false;
+	public bool paused = false;
 
 	private Vector2 GetGameView() {
 		System.Type T = System.Type.GetType("UnityEditor.GameView,UnityEditor");
@@ -331,6 +332,7 @@ public class LevelManager : MonoBehaviour {
 			Time.timeScale = 0;
 			pausePanel.alpha = 1;
 			pausePanel.blocksRaycasts = true;
+			paused = true;
 		}
 	}	
 
@@ -338,6 +340,7 @@ public class LevelManager : MonoBehaviour {
 		pausePanel.alpha = 0;
 		pausePanel.blocksRaycasts = false;
 		Time.timeScale = 1;
+		paused = false;
 	}
 	
 	void OnApplicationPause(bool pauseStatus) {
