@@ -91,6 +91,8 @@ public class LevelManager : MonoBehaviour {
 		} else {
 			highScoreText.text = "";
 		}
+		gameCanvas.alpha = 0;
+		titleCanvas.gameObject.SetActive(true);
 	}
 	
 	// Update is called once per frame
@@ -354,7 +356,7 @@ public class LevelManager : MonoBehaviour {
 		currentOperand = "";
 		currentTotal = 0;
 		secondVarHolder = 0;
-		goalTexts[3].CrossFadeAlpha(0, 1, false);
+		goalTexts[3].CrossFadeAlpha(0, 0, false);
 		goals[3] = 0;
 		ResetTimer();
 		energySlider.value = 1f;
