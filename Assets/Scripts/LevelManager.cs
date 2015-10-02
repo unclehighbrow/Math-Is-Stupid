@@ -393,4 +393,8 @@ public class LevelManager : MonoBehaviour {
 		}
 	}
 
+	public void ShowLeaderboardUI() {
+		Social.ShowLeaderboardUI();
+	}
+	
 }
