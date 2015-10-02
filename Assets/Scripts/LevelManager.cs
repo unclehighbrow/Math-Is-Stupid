@@ -178,8 +178,8 @@ public class LevelManager : MonoBehaviour {
 
 	IEnumerator GoalMet(int i) {
 		goalMet = true;
-		StartCoroutine(Glow(calcText));
-		yield return StartCoroutine(Glow(goalTexts[i]));
+		StartCoroutine(Util.Glow(calcText));
+		yield return StartCoroutine(Util.Glow(goalTexts[i]));
 		StartCoroutine(GenerateGoals());
 		GameSingleton.Instance.score += 1000;
 		timer += goalAddend;
@@ -205,25 +205,6 @@ public class LevelManager : MonoBehaviour {
 		return goal;
 	}
 
-	IEnumerator Glow(Text text) {
-		Outline outline = text.GetComponent<Outline>();
-		if (outline != null) {
-			outline.enabled = true;	
-			for (int i = 0; i<12; i++) {
-				outline.effectDistance += Vector2.one * .25f;
-				yield return new WaitForSeconds(.04f);
-			}
-			for (int i = 0; i<10; i++) {
-				outline.effectDistance -= Vector2.one * .3f;
-				yield return new WaitForSeconds(.1f);
-			}
-			outline.effectDistance = Vector2.zero;
-			outline.enabled = false;
-		} 
-		yield return null;
-	}
-
-
 	IEnumerator HandlePowerupCo() {
 		string powerup = tempPowerup;
 		for (int i = 0; i<15; i++) {
@@ -232,7 +213,7 @@ public class LevelManager : MonoBehaviour {
 		}
 		powerupDisplay.text = powerup;
 		ActivatePowerup(powerup);
-		yield return StartCoroutine(Glow(powerupDisplay));
+		yield return StartCoroutine(Util.Glow(powerupDisplay));
 		for (int i = 0; i<5; i++) {
 			powerupDisplay.text = Util.RandomString(powerup);
 			yield return new WaitForSeconds(.02f);
@@ -256,7 +237,7 @@ public class LevelManager : MonoBehaviour {
 			foreach (Text iOperand in operands.GetComponentsInChildren<Text>()) {
 				if (iOperand.text.Equals(operand)) {
 					iOperand.color = Color.yellow;
-					StartCoroutine(Glow(iOperand));
+					StartCoroutine(Util.Glow(iOperand));
 				} else {
 					iOperand.color = Color.white;
 				}
@@ -280,7 +261,7 @@ public class LevelManager : MonoBehaviour {
 			int goal = GenerateGoal();
 			goalTexts[3].text = goal.ToString();
 			goals[3] = goal;
-			StartCoroutine(Glow(goalTexts[3]));
+			StartCoroutine(Util.Glow(goalTexts[3]));
 		} else if (powerup == Powerup.invinciblity) {
 			deepThroat.animator.SetBool("invincible", true);
 		}
@@ -396,6 +377,11 @@ public class LevelManager : MonoBehaviour {
 		gameStarted = true;
 		yield return null;
 	}
+
+	public void LoadTutorial() {
+		Application.LoadLevel("Tutorial");
+	}
+
 
 	IEnumerator FadeInFadeOutCanvas(CanvasGroup fadeIn, CanvasGroup fadeOut) {
 		while (fadeIn.alpha < 1) {

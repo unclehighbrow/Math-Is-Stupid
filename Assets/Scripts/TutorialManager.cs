@@ -15,6 +15,7 @@ public class TutorialManager : MonoBehaviour {
 	protected int currentLines;
 	protected bool next = false;
 	protected bool writing = false;
+	protected bool pointing = false;
 	protected int mode = 1;
 	protected int goalsHit = 0;
 	protected float writingDelayDefault = .02f;
@@ -27,10 +28,18 @@ public class TutorialManager : MonoBehaviour {
 	public Text timerText;
 	public Slider mathJuice;
 	public CanvasGroup gameCanvas;
+	public Text plusOperand;
+
+	public GameObject numberPrefab;
+	public GameObject pointerPrefab;
+
+	GameObject bouncePointer1;
+	GameObject bouncePointer2;
 	
 	protected int Line = 0;
 	
 	public void Start() {
+		realDeepThroat.speed = .035f;
 		StartCoroutine("Tutorial");
 	}
 
@@ -41,54 +50,57 @@ public class TutorialManager : MonoBehaviour {
 		g.CrossFadeAlpha(1f, 0f, false);
 	}
 
+	public void Next() {
+		next = true;
+	}
+
 	// fdkslaj fdslkafjdslakfjd salfkjd slakfj dlsakjf dlsak jfdlsakjf dlskajf dlksafj  fd
 
 	IEnumerator Tutorial() {
 		gameCanvas.alpha = 0;
 		realDeepThroat.gameObject.SetActive(false);
 
-
 		Hide(deepThroat);
 		Show(nixon);
-		StartCoroutine(DisplayLine("Deep Throat, hear my call!"));		
+		StartCoroutine(DisplayLine("Deep Throat, hear my call!", true));		
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		Show(deepThroat);
 		Hide(nixon);
-		StartCoroutine(DisplayLine("Wait, what? What's going on? Richard Nixon?!??!"));
+		StartCoroutine(DisplayLine("Wait, what? What's going on? Richard Nixon?!??!", true));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		Show(nixon);
 		Hide(deepThroat);
-		StartCoroutine(DisplayLine("Correct. We must put our political differences aside and you must save the universe!"));
+		StartCoroutine(DisplayLine("Correct. We must put our political differences aside and you must save the universe!", true));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		Show(deepThroat);
 		Hide(nixon);
-		StartCoroutine(DisplayLine("Oh. Okay. Sure."));
+		StartCoroutine(DisplayLine("Oh. Okay. Sure.", true));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		Show(nixon);
 		Hide(deepThroat);
-		StartCoroutine(DisplayLine("The fabric of space time is falling apart."));
+		StartCoroutine(DisplayLine("The fabric of space time is falling apart.", true));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
-		StartCoroutine(DisplayLine("and the only way to stop it is by doing math equations in space on a purple surfboard."));
+		StartCoroutine(DisplayLine("and the only way to stop it is by doing math equations in space on a purple surfboard.", true));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 		
 		Show(deepThroat);
 		Hide(nixon);
-		StartCoroutine(DisplayLine("A purple surfboard?"));
+		StartCoroutine(DisplayLine("A purple surfboard?", true));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		Show(nixon);
 		Hide(deepThroat);
-		StartCoroutine(DisplayLine("Yeah, you're already on it."));
+		StartCoroutine(DisplayLine("Yeah, you're already on it.", true));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		Show(deepThroat);
 		Hide(nixon);
-		StartCoroutine(DisplayLine("Oh, you're right. Let's get to it!"));
+		StartCoroutine(DisplayLine("Oh, you're right. Let's get to it!", true));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		goal1.text = "5";
@@ -97,16 +109,134 @@ public class TutorialManager : MonoBehaviour {
 		timerText.text = "90:00";
 		deepThroat.CrossFadeAlpha(0f, 1f, false);
 		realDeepThroat.gameObject.SetActive(true);
-		Hide (nixon);
+		Hide(nixon);
 		while (gameCanvas.alpha < 1f) {
 			gameCanvas.alpha += .01f;
 			yield return new WaitForEndOfFrame();
 		}
 
-		StartCoroutine(DisplayLine("You fly around on the left. Move up and down by tapping the left side of the screen!"));
+		StartCoroutine(DisplayLine("Move up and down by tapping the left side of the screen!", true));
+		bouncePointer1 = Instantiate(pointerPrefab);
+		bouncePointer1.transform.position = new Vector2(realDeepThroat.gameObject.transform.position.x, realDeepThroat.gameObject.transform.position.y - 3);
+		realDeepThroat.destination = bouncePointer1.transform.position;
+		bouncePointer2 = Instantiate(pointerPrefab);
+		bouncePointer2.transform.position = new Vector2(realDeepThroat.gameObject.transform.position.x, realDeepThroat.gameObject.transform.position.y);
+		bouncePointer2.SetActive(false);
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
+
+		bouncePointer1.SetActive(false);
+		bouncePointer2.SetActive(false);
+		realDeepThroat.destination = realDeepThroat.transform.position;
+		StartCoroutine(DisplayLine("Numbers will fly at you. Here's comes a four!", false));
+		GameObject four = Instantiate(numberPrefab);
+		four.GetComponent<Number>().SetValue(4);
+		four.transform.position = new Vector2(10, realDeepThroat.transform.position.y);
+		four.GetComponent<Rigidbody2D>().AddForce(new Vector2(-250, 0));
+		while (!next) {	yield return new WaitForEndOfFrame(); }
+
+		calcText.text = "4";
+		StartCoroutine(DisplayLine("Now you have a number to do math with!", true));
+		calcText.transform.Find("Arrow").gameObject.SetActive(true);
+		while (!next) {	yield return new WaitForEndOfFrame(); }
+
+		calcText.transform.Find("Arrow").gameObject.SetActive(false);
+		StartCoroutine(DisplayLine("You're trying to get to one of these three goals.", true));
+		goal1.transform.Find("Arrow").gameObject.SetActive(true);
+		while (!next) {	yield return new WaitForEndOfFrame(); }
+
+		goal1.transform.Find("Arrow").gameObject.SetActive(false);
+		StartCoroutine(DisplayLine("Now you tap one of these math things on the right. We'll do plus for now.", true));
+		plusOperand.transform.Find("PointerUI").gameObject.SetActive(true);
+		StartCoroutine("GlowRepeat", plusOperand);
+		while (!next) {	yield return new WaitForEndOfFrame(); }
+
+		StartCoroutine(DisplayLine("They're called operands, but whatever.", true));
+		while (!next) {	yield return new WaitForEndOfFrame(); }
+
+		StopCoroutine("GlowRepeat");
+		calcText.text = "4 + ";
+		plusOperand.transform.Find("PointerUI").gameObject.SetActive(false);
+		plusOperand.color = Color.yellow;
+		StartCoroutine(DisplayLine("Here comes a one!", false));
+		GameObject one = Instantiate(numberPrefab);
+		one.GetComponent<Number>().SetValue(1);
+		one.transform.position = new Vector2(10, realDeepThroat.transform.position.y);
+		one.GetComponent<Rigidbody2D>().AddForce(new Vector2(-250, 0));
+		while (!next) {	yield return new WaitForEndOfFrame(); }
+
+		StartCoroutine(DisplayLine("4 + 1 = 5, ya dummy! We did it!", true));
+		StartCoroutine("GoalMet");
+		while (!next) {	yield return new WaitForEndOfFrame(); }
+
+		plusOperand.color = Color.white;
+		StartCoroutine(DisplayLine("Reaching goals adds to your time. If your run out of time, it's game over for you and the universe.", true));
+		StopCoroutine("GlowRepeat");
+		StopCoroutine("GlowRepeat");
+		timerText.transform.Find("Arrow").gameObject.SetActive(true);
+		while (!next) {	yield return new WaitForEndOfFrame(); }
+
+		StartCoroutine(DisplayLine("If you don't do math often enough, your math juice will deplete.", true));
+		timerText.transform.Find("Arrow").gameObject.SetActive(false);
+		mathJuice.transform.Find("Arrow").gameObject.SetActive(true);
+		StartCoroutine("DepleteJuice");
+		while (!next) {	yield return new WaitForEndOfFrame(); }
+
+		mathJuice.transform.Find("Arrow").gameObject.SetActive(false);
+		StopCoroutine("DepleteJuice");
+		StartCoroutine(DisplayLine("I don't know, you'll probably figure the rest out. Just play the game all ready!", true));
+		while (!next) {	yield return new WaitForEndOfFrame(); }
+
+		Application.LoadLevel("Space");
+
 		yield return null;
+	}
+
+	public IEnumerator DepleteJuice() {
+		while (true) {
+			mathJuice.value -= .01f;
+			if (mathJuice.value <= 0) {
+				realDeepThroat.Shake();
+				yield return new WaitForSeconds(.5f);
+				mathJuice.value = 1;
+			}
+			yield return new WaitForEndOfFrame();
+		}
+	}
+
+	public void Bounce(GameObject bounce) {
+		if (bounce.Equals(bouncePointer1)) {
+			bouncePointer2.SetActive(true);
+			bouncePointer1.SetActive(false);
+			realDeepThroat.destination = bouncePointer2.transform.position;
+		} else {
+			bouncePointer1.SetActive(true);
+			bouncePointer2.SetActive(false);
+			realDeepThroat.destination = bouncePointer1.transform.position;
+		}
+	}
+
+	
+	IEnumerator GoalMet() {
+		// set second var
+		calcText.text = "4 + 1";
+		yield return new WaitForSeconds(.3f);
+		
+		// set equal
+		calcText.text = "4 + 1 =";
+		yield return new WaitForSeconds(.3f);
+		
+		calcText.text = "4 + 1 = 5";
+		yield return new WaitForSeconds(.3f);
+		
+		StartCoroutine("GlowRepeat", calcText);
+		StartCoroutine("GlowRepeat", goal1);
+	}
+
+	public IEnumerator GlowRepeat(Text text) {
+		while (true) {
+			yield return StartCoroutine(Util.Glow(text));
+		}
 	}
 	
 	public void Update() {
@@ -128,8 +258,7 @@ public class TutorialManager : MonoBehaviour {
 		if (click) {
 			if (writing) {
 				writingDelay = 0f;
-			} else {
-				writingDelay = writingDelayDefault;
+			} else if (pointing) {
 				StopPointer();
 				next = true;
 				Line++;
@@ -138,12 +267,14 @@ public class TutorialManager : MonoBehaviour {
 	}
 	
 	public void StopPointer() {
+		pointing = false;
 		StopCoroutine("Pointer");
 		pointer.gameObject.SetActive(false);
 	}
 	
-	public IEnumerator DisplayLine(string text) {
+	public IEnumerator DisplayLine(string text, bool pointer) {
 		StopPointer();
+		writingDelay = writingDelayDefault;
 		while (writing) {
 			yield return new WaitForEndOfFrame();
 		}
@@ -183,11 +314,16 @@ public class TutorialManager : MonoBehaviour {
 				}
 			}
 		}
-		StartCoroutine("Pointer");
+		if (pointer) {
+			StartCoroutine("Pointer");
+		} else {
+			StopPointer();
+		}
 		writing = false;
 	}
 	
 	public IEnumerator Pointer() {
+		pointing = true;
 		while (true) {
 			pointer.gameObject.SetActive(!pointer.gameObject.activeSelf);
 			yield return new WaitForSeconds(.7f);

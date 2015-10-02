@@ -11,8 +11,10 @@ public class Flyer : MonoBehaviour {
 	public void Start () {
 		levelManager = GameObject.FindObjectOfType<LevelManager>();
 		spawner = GameObject.FindObjectOfType<Spawner>();
-		transform.position = new Vector2(levelManager.maxX, UnityEngine.Random.Range(levelManager.minY, levelManager.maxY));
-		GetComponent<Rigidbody2D>().AddForce(new Vector2(-200 * spawner.flyerSpeed * UnityEngine.Random.Range(1f, 1.5f), 0));
+		if (spawner != null) {
+			transform.position = new Vector2(levelManager.maxX, UnityEngine.Random.Range(levelManager.minY, levelManager.maxY));
+			GetComponent<Rigidbody2D>().AddForce(new Vector2(-200 * spawner.flyerSpeed * UnityEngine.Random.Range(1f, 1.5f), 0));
+		} 
 		rotation = new Vector3(0,0,Random.Range (-3f,3f));
 	}
 	

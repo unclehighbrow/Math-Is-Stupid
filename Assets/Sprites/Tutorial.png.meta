@@ -1,12 +1,13 @@
 fileFormatVersion: 2
 guid: f205900f737a14f93bdd0018a65f4704
-timeCreated: 1443465547
+timeCreated: 1443726284
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Pointer
     21300002: nixon open
     21300004: nixon closed
+    21300006: arrow
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -80,6 +81,16 @@ TextureImporter:
         y: 987
         width: 30
         height: 34
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: arrow
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 952
+        width: 14
+        height: 14
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

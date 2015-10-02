@@ -3,6 +3,7 @@ using System.Collections;
 
 public class DeepThroat : MonoBehaviour {
 	public LevelManager levelManager;
+	public TutorialManager tutorialManager;
 	public Vector2 destination;
 	public Animator animator;
 	public bool dead = false;
@@ -56,8 +57,15 @@ public class DeepThroat : MonoBehaviour {
 				} else if (col.gameObject.CompareTag("Powerup")) {
 					levelManager.HandlePowerup(col.gameObject.GetComponent<Powerup>().powerup);
 				}
+				Destroy(col.gameObject);
+			} else if (tutorialManager != null) {
+				if (col.gameObject.CompareTag("Pointer")) {
+					tutorialManager.Bounce(col.gameObject);
+				} else {
+					tutorialManager.Next();
+					Destroy(col.gameObject);
+				}
 			}
-			Destroy(col.gameObject);
 		}
 	}
 }

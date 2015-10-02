@@ -11,8 +11,14 @@ public class Number : Flyer {
 
 	public new void Start() {
 		base.Start();
-		int midOrMax = UnityEngine.Random.Range(0, 5);
-		int value = UnityEngine.Random.Range(minNumber,(midOrMax == 1 ? maxNumber: midNumber));
+		if (number == 0) {
+			int midOrMax = UnityEngine.Random.Range(0, 5);
+			int value = UnityEngine.Random.Range(minNumber,(midOrMax == 1 ? maxNumber: midNumber));
+			SetValue(value);
+		}
+	}
+
+	public void SetValue(int value) {
 		GetComponent<TextMesh>().text = value.ToString();
 		GetComponent<Number>().number = value;
 	}
