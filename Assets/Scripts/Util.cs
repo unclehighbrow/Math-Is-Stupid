@@ -13,6 +13,10 @@ public class Util : MonoBehaviour {
 		return x == null || x == "";
 	}
 
+	public static string RandomNumber() {
+		return "" + UnityEngine.Random.Range(0, 10) + UnityEngine.Random.Range(0, 10);
+	}
+
 	public static string RandomString(string input) {
 		string ret = "";
 		int length = input.Length;

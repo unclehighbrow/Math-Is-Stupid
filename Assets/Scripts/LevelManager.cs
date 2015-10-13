@@ -186,10 +186,22 @@ public class LevelManager : MonoBehaviour {
 		goalMet = true;
 		StartCoroutine(Util.Glow(calcText));
 		yield return StartCoroutine(Util.Glow(goalTexts[i]));
+		yield return StartCoroutine(RandomizeGoals());
 		StartCoroutine(GenerateGoals());
 		GameSingleton.Instance.score += 1000;
 		timer += goalAddend;
 		goalMet = false;
+		yield return null;
+	}
+
+	public IEnumerator RandomizeGoals() {
+		int goalCount = IsPowerupActive(Powerup.moreGoals) ? 3 : 2;
+		for (int i = 0; i <= 10; i++) {
+			for (int j = 0; j <= goalCount; j++) {
+				goalTexts[j].text = Util.RandomNumber();
+			}
+			yield return new WaitForSeconds(.05f);
+		}
 		yield return null;
 	}
 

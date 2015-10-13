@@ -28,9 +28,7 @@ public class GameSingleton : Singleton<GameSingleton> {
 	void ProcessAuthentication (bool success) {
 		if (success) {
 			loggedIn = true;
-		} else {
-			Debug.Log ("Failed to authenticate");
-		}
+		} 
 	}
 	
 	void FetchScores() {

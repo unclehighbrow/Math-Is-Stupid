@@ -51,7 +51,7 @@ public class Spawner : MonoBehaviour {
 				if (startTimer < 5) {
 					startTimer = 5f;
 				}
-				rockFrequency -= .2f;
+				rockFrequency -= .25f;
 				if (rockFrequency < .5) {
 					rockFrequency = .5f;
 				}
@@ -73,7 +73,7 @@ public class Spawner : MonoBehaviour {
 	}
 
 	IEnumerator GenerateRocks() {
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(9);
 		while (true) {
 			Instantiate(rockPrefab);
 			yield return new WaitForSeconds(UnityEngine.Random.Range(0f, rockFrequency));
