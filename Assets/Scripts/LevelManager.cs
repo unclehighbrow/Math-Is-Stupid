@@ -54,6 +54,7 @@ public class LevelManager : MonoBehaviour {
 
 	bool performingOperation = false;
 	bool goalMet = false;
+	bool gameOvering = false;
 
 	string tempPowerup;
 
@@ -63,7 +64,7 @@ public class LevelManager : MonoBehaviour {
 
 	public bool gameStarted = false;
 	public bool paused = false;
-
+	
 	private Vector2 GetGameView() {
 		System.Type T = System.Type.GetType("UnityEditor.GameView,UnityEditor");
 		System.Reflection.MethodInfo getSizeOfMainGameView =
@@ -109,19 +110,21 @@ public class LevelManager : MonoBehaviour {
 		if (invincible) {
 			yield return null;
 		} else {
+			gameOvering = true;
 			gameStarted = false;
 			deepThroat.dead = true;
 			spawner.StopGame();
 			deepThroat.GetComponent<Rigidbody2D>().AddForce(new Vector2(300, -500));
 			deepThroat.GetComponent<Rigidbody2D>().AddTorque(-30);
 			yield return new WaitForSeconds(1.5f);
-			yield return StartCoroutine(FadeInFadeOutCanvas(titleCanvas, gameCanvas));
 			Destroy (deepThroat);
 			deepThroat = Instantiate(deepThroatPrefab).GetComponent<DeepThroat>();
 			deepThroat.transform.position = new Vector2(-10, 0);
 			inputManager.deepThroat = deepThroat;
+			yield return StartCoroutine(FadeInFadeOutCanvas(titleCanvas, gameCanvas));
 			GameSingleton.Instance.RecordScore();
 			highScoreText.text = "high " + GameSingleton.Instance.highScore.ToString().PadLeft(5, '0');
+			gameOvering = false;
 			yield return null;
 		}
 	}
@@ -354,32 +357,34 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	IEnumerator StartGameCo() {	
-		calcText.text = "0";
-		powerupDisplay.text = "";
-		currentOperand = "";
-		currentTotal = 0;
-		secondVarHolder = 0;
-		goalTexts[3].CrossFadeAlpha(0, 0, false);
-		goals[3] = 0;
-		ResetTimer();
-		energySlider.value = 1f;
-		timerText.text = timer.ToString("F2");
-		foreach (string powerup in Powerup.powerups) {
-			powerupTimers[powerup] = 0;
+		if (!gameOvering) {
+			calcText.text = "0";
+			powerupDisplay.text = "";
+			currentOperand = "";
+			currentTotal = 0;
+			secondVarHolder = 0;
+			goalTexts[3].CrossFadeAlpha(0, 0, false);
+			goals[3] = 0;
+			ResetTimer();
+			energySlider.value = 1f;
+			timerText.text = timer.ToString("F2");
+			foreach (string powerup in Powerup.powerups) {
+				powerupTimers[powerup] = 0;
+			}
+			StartCoroutine(GenerateGoals());
+			GameSingleton.Instance.score = 0;
+			scoreText.text = "00000";
+			StartCoroutine(FadeInFadeOutCanvas(gameCanvas, titleCanvas));
+			Vector2 destination = new Vector2(-5.5f,0f);
+			while ((Vector2)deepThroat.transform.position != destination) {
+				Vector2 p = Vector2.MoveTowards(deepThroat.transform.position, destination, deepThroat.speed/3f);
+				deepThroat.GetComponent<Rigidbody2D>().MovePosition(p);
+				yield return new WaitForEndOfFrame();
+			}
+			yield return new WaitForSeconds(1);
+			spawner.StartGame();
+			gameStarted = true;
 		}
-		StartCoroutine(GenerateGoals());
-		GameSingleton.Instance.score = 0;
-		scoreText.text = "00000";
-		StartCoroutine(FadeInFadeOutCanvas(gameCanvas, titleCanvas));
-		Vector2 destination = new Vector2(-5.5f,0f);
-		while ((Vector2)deepThroat.transform.position != destination) {
-			Vector2 p = Vector2.MoveTowards(deepThroat.transform.position, destination, deepThroat.speed/3f);
-			deepThroat.GetComponent<Rigidbody2D>().MovePosition(p);
-			yield return new WaitForEndOfFrame();
-		}
-		yield return new WaitForSeconds(1);
-		spawner.StartGame();
-		gameStarted = true;
 		yield return null;
 	}
 
@@ -394,6 +399,7 @@ public class LevelManager : MonoBehaviour {
 			fadeOut.alpha -= .01f;
 			yield return new WaitForSeconds(.01f);
 		}
+		fadeOut.alpha = 0;
 	}
 
 	public void ShowLeaderboardUI() {
