@@ -64,6 +64,19 @@ public class LevelManager : MonoBehaviour {
 
 	public bool gameStarted = false;
 	public bool paused = false;
+
+	AudioSource audioSource;
+	public AudioClip numberSound;
+	public AudioClip operandSound; 
+	public AudioClip startGameSound; 
+	public AudioClip calculatingSound; 
+	public AudioClip choosingSound; 
+	public AudioClip gameOverSound; 
+	public AudioClip doingMathSound;
+	public AudioClip goalHitSound;
+	public AudioClip hurtSound;
+	public AudioSource music;
+
 	
 	private Vector2 GetGameView() {
 		System.Type T = System.Type.GetType("UnityEditor.GameView,UnityEditor");
@@ -95,6 +108,7 @@ public class LevelManager : MonoBehaviour {
 		}
 		gameCanvas.alpha = 0;
 		titleCanvas.gameObject.SetActive(true);
+		audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -111,6 +125,9 @@ public class LevelManager : MonoBehaviour {
 			yield return null;
 		} else {
 			gameOvering = true;
+			music.Stop();
+			audioSource.PlayOneShot(gameOverSound);
+			HandleOperand("");
 			gameStarted = false;
 			deepThroat.dead = true;
 			spawner.StopGame();
@@ -122,6 +139,7 @@ public class LevelManager : MonoBehaviour {
 			deepThroat.transform.position = new Vector2(-10, 0);
 			inputManager.deepThroat = deepThroat;
 			yield return StartCoroutine(FadeInFadeOutCanvas(titleCanvas, gameCanvas));
+			titleCanvas.blocksRaycasts = true;
 			GameSingleton.Instance.RecordScore();
 			highScoreText.text = "high " + GameSingleton.Instance.highScore.ToString().PadLeft(5, '0');
 			gameOvering = false;
@@ -184,6 +202,7 @@ public class LevelManager : MonoBehaviour {
 
 	IEnumerator GoalMet(int i) {
 		goalMet = true;
+		audioSource.PlayOneShot(goalHitSound);
 		StartCoroutine(Util.Glow(calcText));
 		yield return StartCoroutine(Util.Glow(goalTexts[i]));
 		yield return StartCoroutine(RandomizeGoals());
@@ -200,12 +219,14 @@ public class LevelManager : MonoBehaviour {
 			for (int j = 0; j <= goalCount; j++) {
 				goalTexts[j].text = Util.RandomNumber();
 			}
+			audioSource.PlayOneShot(calculatingSound);
 			yield return new WaitForSeconds(.05f);
 		}
 		yield return null;
 	}
 
 	public IEnumerator GenerateGoals() {
+		audioSource.PlayOneShot(choosingSound);
 		int goalCount = IsPowerupActive(Powerup.moreGoals) ? 3 : 2;
 		for (int i = 0; i <= goalCount; i++) {
 			int goal = GenerateGoal();
@@ -227,9 +248,11 @@ public class LevelManager : MonoBehaviour {
 		string powerup = tempPowerup;
 		for (int i = 0; i<15; i++) {
 			powerupDisplay.text = Util.RandomString(powerup);
+			audioSource.PlayOneShot(calculatingSound);
 			yield return new WaitForSeconds(.05f);
 		}
 		powerupDisplay.text = powerup;
+		audioSource.PlayOneShot(choosingSound);
 		ActivatePowerup(powerup);
 		yield return StartCoroutine(Util.Glow(powerupDisplay));
 		for (int i = 0; i<5; i++) {
@@ -243,6 +266,9 @@ public class LevelManager : MonoBehaviour {
 
 	public void HandleOperand(string operand) {
 		if (!Util.IsEmpty(currentTotal)) {
+			if (!Util.IsEmpty(operand)) {
+				audioSource.PlayOneShot(operandSound);
+			}
 			if (performingOperation && !Util.IsEmpty(operand)) { // perform operation now
 				StopCoroutine("PerformOperation");
 				currentTotal = operandMap[currentOperand](currentTotal, secondVarHolder);
@@ -282,6 +308,8 @@ public class LevelManager : MonoBehaviour {
 			StartCoroutine(Util.Glow(goalTexts[3]));
 		} else if (powerup == Powerup.invinciblity) {
 			deepThroat.animator.SetBool("invincible", true);
+		} else if (powerup == Powerup.unlimitedTimeJuice) {
+			energySlider.value = 1;
 		}
 	}
 
@@ -300,6 +328,7 @@ public class LevelManager : MonoBehaviour {
 
 	public void HandleRock() {
 		if (!IsPowerupActive(Powerup.invinciblity)) {
+			audioSource.PlayOneShot(hurtSound);
 			timer -= rockPenalty;
 			deepThroat.Shake();
 		}
@@ -307,9 +336,11 @@ public class LevelManager : MonoBehaviour {
 
 	public void HandleNumber(int number) {
 		if (Util.IsEmpty(currentTotal)) {
+			audioSource.PlayOneShot(numberSound);
 			currentTotal = number;
 			calcText.text = currentTotal.ToString();
 		} else if (!Util.IsEmpty(currentOperand) && !performingOperation) {
+			audioSource.PlayOneShot(numberSound);
 			secondVarHolder = number;
 			StartCoroutine("PerformOperation");
 			GameSingleton.Instance.score += 10;
@@ -322,15 +353,18 @@ public class LevelManager : MonoBehaviour {
 
 		// set second var
 		calcText.text = currentTotal + " " + currentOperand + " " + secondVarHolder.ToString();
+		audioSource.PlayOneShot(doingMathSound);
 		yield return new WaitForSeconds(.3f);
 
 		// set equal
 		calcText.text = currentTotal + " " + currentOperand + " " + secondVarHolder.ToString() + " = ";
+		audioSource.PlayOneShot(doingMathSound);
 		yield return new WaitForSeconds(.3f);
 
 		// set result
 		int tempCurrentTotal = operandMap[currentOperand](currentTotal, secondVarHolder);
 		calcText.text = currentTotal + " " + currentOperand + " " + secondVarHolder.ToString() + " = " + tempCurrentTotal.ToString();
+		audioSource.PlayOneShot(doingMathSound);
 		yield return new WaitForSeconds(.3f);
 
 		// reset everyting
@@ -370,6 +404,8 @@ public class LevelManager : MonoBehaviour {
 
 	IEnumerator StartGameCo() {	
 		if (!gameOvering) {
+			audioSource.PlayOneShot(startGameSound);
+			titleCanvas.blocksRaycasts = false;
 			calcText.text = "0";
 			powerupDisplay.text = "";
 			currentOperand = "";
@@ -395,6 +431,7 @@ public class LevelManager : MonoBehaviour {
 			}
 			yield return new WaitForSeconds(1);
 			spawner.StartGame();
+			music.Play();
 			gameStarted = true;
 		}
 		yield return null;
@@ -417,5 +454,4 @@ public class LevelManager : MonoBehaviour {
 	public void ShowLeaderboardUI() {
 		Social.ShowLeaderboardUI();
 	}
-	
 }

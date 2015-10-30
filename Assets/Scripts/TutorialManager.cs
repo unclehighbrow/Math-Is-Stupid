@@ -37,9 +37,14 @@ public class TutorialManager : MonoBehaviour {
 	GameObject bouncePointer2;
 	
 	protected int Line = 0;
+
+	AudioSource audioSource;
+	public AudioClip deepThroatTalk;
+	public AudioClip nixonTalk;
 	
 	public void Start() {
 		realDeepThroat.speed = .035f;
+		audioSource = GetComponent<AudioSource>();
 		StartCoroutine("Tutorial");
 	}
 
@@ -62,45 +67,45 @@ public class TutorialManager : MonoBehaviour {
 
 		Hide(deepThroat);
 		Show(nixon);
-		StartCoroutine(DisplayLine("Deep Throat, hear my call!", true));		
+		StartCoroutine(DisplayLine("Deep Throat, hear my call!", true, nixonTalk));		
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		Show(deepThroat);
 		Hide(nixon);
-		StartCoroutine(DisplayLine("Wait, what? What's going on? Richard Nixon?!??!", true));
+		StartCoroutine(DisplayLine("Wait, what? What's going on? Richard Nixon?!??!", true, deepThroatTalk));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		Show(nixon);
 		Hide(deepThroat);
-		StartCoroutine(DisplayLine("Correct. We must put our political differences aside and you must save the universe!", true));
+		StartCoroutine(DisplayLine("Correct. We must put our political differences aside and you must save the universe!", true, nixonTalk));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		Show(deepThroat);
 		Hide(nixon);
-		StartCoroutine(DisplayLine("Oh. Okay. Sure.", true));
+		StartCoroutine(DisplayLine("Oh. Okay. Sure.", true, deepThroatTalk));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		Show(nixon);
 		Hide(deepThroat);
-		StartCoroutine(DisplayLine("The fabric of space time is falling apart.", true));
+		StartCoroutine(DisplayLine("The fabric of space time is falling apart.", true, nixonTalk));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
-		StartCoroutine(DisplayLine("and the only way to stop it is by doing math equations in space on a purple surfboard.", true));
+		StartCoroutine(DisplayLine("and the only way to stop it is by doing math equations in space on a purple surfboard.", true, nixonTalk));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 		
 		Show(deepThroat);
 		Hide(nixon);
-		StartCoroutine(DisplayLine("A purple surfboard?", true));
+		StartCoroutine(DisplayLine("A purple surfboard?", true, deepThroatTalk));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		Show(nixon);
 		Hide(deepThroat);
-		StartCoroutine(DisplayLine("Yeah, you're already on it.", true));
+		StartCoroutine(DisplayLine("Yeah, you're already on it.", true, nixonTalk));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		Show(deepThroat);
 		Hide(nixon);
-		StartCoroutine(DisplayLine("Oh, you're right. Let's get to it!", true));
+		StartCoroutine(DisplayLine("Oh, you're right. Let's get to it!", true, deepThroatTalk));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		goal1.text = "5";
@@ -115,7 +120,7 @@ public class TutorialManager : MonoBehaviour {
 			yield return new WaitForEndOfFrame();
 		}
 
-		StartCoroutine(DisplayLine("Move up and down by tapping the left side of the screen!", true));
+		StartCoroutine(DisplayLine("Move up and down by tapping the left side of the screen!", true, nixonTalk));
 		bouncePointer1 = Instantiate(pointerPrefab);
 		bouncePointer1.transform.position = new Vector2(realDeepThroat.gameObject.transform.position.x, realDeepThroat.gameObject.transform.position.y - 3);
 		realDeepThroat.destination = bouncePointer1.transform.position;
@@ -128,7 +133,7 @@ public class TutorialManager : MonoBehaviour {
 		bouncePointer1.SetActive(false);
 		bouncePointer2.SetActive(false);
 		realDeepThroat.destination = realDeepThroat.transform.position;
-		StartCoroutine(DisplayLine("Numbers will fly at you. Here's comes a four!", false));
+		StartCoroutine(DisplayLine("Numbers will fly at you. Here's comes a four!", false, nixonTalk));
 		GameObject four = Instantiate(numberPrefab);
 		four.GetComponent<Number>().SetValue(4);
 		four.transform.position = new Vector2(10, realDeepThroat.transform.position.y);
@@ -136,47 +141,47 @@ public class TutorialManager : MonoBehaviour {
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		calcText.text = "4";
-		StartCoroutine(DisplayLine("Now you have a number to do math with!", true));
+		StartCoroutine(DisplayLine("Now you have a number to do math with!", true, nixonTalk));
 		calcText.transform.Find("Arrow").gameObject.SetActive(true);
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		calcText.transform.Find("Arrow").gameObject.SetActive(false);
-		StartCoroutine(DisplayLine("You're trying to get to one of these three goals.", true));
+		StartCoroutine(DisplayLine("You're trying to get to one of these three goals.", true, nixonTalk));
 		goal1.transform.Find("Arrow").gameObject.SetActive(true);
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		goal1.transform.Find("Arrow").gameObject.SetActive(false);
-		StartCoroutine(DisplayLine("Now you tap one of these math things on the right. We'll do plus for now.", true));
+		StartCoroutine(DisplayLine("Now you tap one of these math things on the right. We'll do plus for now.", true, nixonTalk));
 		plusOperand.transform.Find("PointerUI").gameObject.SetActive(true);
 		StartCoroutine("GlowRepeat", plusOperand);
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
-		StartCoroutine(DisplayLine("They're called operands, but whatever.", true));
+		StartCoroutine(DisplayLine("They're called operands, but whatever.", true, nixonTalk));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		StopCoroutine("GlowRepeat");
 		calcText.text = "4 + ";
 		plusOperand.transform.Find("PointerUI").gameObject.SetActive(false);
 		plusOperand.color = Color.yellow;
-		StartCoroutine(DisplayLine("Here comes a one!", false));
+		StartCoroutine(DisplayLine("Here comes a one!", false, nixonTalk));
 		GameObject one = Instantiate(numberPrefab);
 		one.GetComponent<Number>().SetValue(1);
 		one.transform.position = new Vector2(10, realDeepThroat.transform.position.y);
 		one.GetComponent<Rigidbody2D>().AddForce(new Vector2(-250, 0));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
-		StartCoroutine(DisplayLine("4 + 1 = 5, ya dummy! We did it!", true));
+		StartCoroutine(DisplayLine("4 + 1 = 5, ya dummy! We did it!", true, nixonTalk));
 		StartCoroutine("GoalMet");
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		plusOperand.color = Color.white;
-		StartCoroutine(DisplayLine("Reaching goals adds to your time. If your run out of time, it's game over for you and the universe.", true));
+		StartCoroutine(DisplayLine("Reaching goals adds to your time. If your run out of time, it's game over for you and the universe.", true, nixonTalk));
 		StopCoroutine("GlowRepeat");
 		StopCoroutine("GlowRepeat");
 		timerText.transform.Find("Arrow").gameObject.SetActive(true);
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
-		StartCoroutine(DisplayLine("If you don't do math often enough, your math juice will deplete.", true));
+		StartCoroutine(DisplayLine("If you don't do math often enough, your math juice will deplete.", true, nixonTalk));
 		timerText.transform.Find("Arrow").gameObject.SetActive(false);
 		mathJuice.transform.Find("Arrow").gameObject.SetActive(true);
 		StartCoroutine("DepleteJuice");
@@ -184,7 +189,7 @@ public class TutorialManager : MonoBehaviour {
 
 		mathJuice.transform.Find("Arrow").gameObject.SetActive(false);
 		StopCoroutine("DepleteJuice");
-		StartCoroutine(DisplayLine("I don't know, you'll probably figure the rest out. Just play the game all ready!", true));
+		StartCoroutine(DisplayLine("I don't know, you'll probably figure the rest out. Just play the game all ready!", true, nixonTalk));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		Application.LoadLevel("Space");
@@ -272,7 +277,7 @@ public class TutorialManager : MonoBehaviour {
 		pointer.gameObject.SetActive(false);
 	}
 	
-	public IEnumerator DisplayLine(string text, bool pointer) {
+	public IEnumerator DisplayLine(string text, bool pointer, AudioClip talkSound) {
 		StopPointer();
 		writingDelay = writingDelayDefault;
 		while (writing) {
@@ -302,6 +307,8 @@ public class TutorialManager : MonoBehaviour {
 				}	
 				
 				foreach (char letter in word) {
+					audioSource.pitch = Random.Range(.8f,1.8f);
+					audioSource.PlayOneShot(talkSound);
 					uiText.text += letter;
 					yield return new WaitForSeconds(writingDelay);
 				}
