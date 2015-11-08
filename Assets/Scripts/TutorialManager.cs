@@ -174,6 +174,9 @@ public class TutorialManager : MonoBehaviour {
 		StartCoroutine("GoalMet");
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
+		StartCoroutine(DisplayLine("You gotta choose an operand each time, so choose carefully.", true, nixonTalk));
+		while (!next) {	yield return new WaitForEndOfFrame(); }
+
 		plusOperand.color = Color.white;
 		StartCoroutine(DisplayLine("Reaching goals adds to your time. If your run out of time, it's game over for you and the universe.", true, nixonTalk));
 		StopCoroutine("GlowRepeat");
@@ -189,7 +192,7 @@ public class TutorialManager : MonoBehaviour {
 
 		mathJuice.transform.Find("Arrow").gameObject.SetActive(false);
 		StopCoroutine("DepleteJuice");
-		StartCoroutine(DisplayLine("I don't know, you'll probably figure the rest out. Just play the game all ready!", true, nixonTalk));
+		StartCoroutine(DisplayLine("I don't know, you'll probably figure the rest out. Just play the game already!", true, nixonTalk));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		Application.LoadLevel("Space");

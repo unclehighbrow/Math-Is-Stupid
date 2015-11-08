@@ -51,13 +51,14 @@ public class DeepThroat : MonoBehaviour {
 		if (!dead) {
 			if (levelManager != null) {
 				if (col.gameObject.CompareTag("Number")) {
-					levelManager.HandleNumber(col.gameObject.GetComponent<Number>().number);
+					levelManager.HandleNumber(col.gameObject.GetComponent<Number>());
 				} else if (col.gameObject.CompareTag("Rock")) {
 					levelManager.HandleRock();
+					Destroy(col.gameObject);
 				} else if (col.gameObject.CompareTag("Powerup")) {
 					levelManager.HandlePowerup(col.gameObject.GetComponent<Powerup>().powerup);
+					Destroy(col.gameObject);
 				}
-				Destroy(col.gameObject);
 			} else if (tutorialManager != null) {
 				if (col.gameObject.CompareTag("Pointer")) {
 					tutorialManager.Bounce(col.gameObject);

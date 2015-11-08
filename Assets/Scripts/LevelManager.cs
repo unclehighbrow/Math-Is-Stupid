@@ -334,16 +334,18 @@ public class LevelManager : MonoBehaviour {
 		}
 	}
 
-	public void HandleNumber(int number) {
+	public void HandleNumber(Number number) {
 		if (Util.IsEmpty(currentTotal)) {
 			audioSource.PlayOneShot(numberSound);
-			currentTotal = number;
+			currentTotal = number.number;
 			calcText.text = currentTotal.ToString();
+			Destroy (number.gameObject);
 		} else if (!Util.IsEmpty(currentOperand) && !performingOperation) {
 			audioSource.PlayOneShot(numberSound);
-			secondVarHolder = number;
+			secondVarHolder = number.number;
 			StartCoroutine("PerformOperation");
 			GameSingleton.Instance.score += 10;
+			Destroy(number.gameObject);
 		}
 	}
 
