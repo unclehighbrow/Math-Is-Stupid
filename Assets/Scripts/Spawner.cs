@@ -52,12 +52,12 @@ public class Spawner : MonoBehaviour {
 					startTimer = 5f;
 				}
 				rockFrequency -= .25f;
-				if (rockFrequency < .5) {
-					rockFrequency = .5f;
+				if (rockFrequency < .6) {
+					rockFrequency = .6f;
 				}
 				numberFrequency -= .1f;
-				if (numberFrequency < .2) {
-					numberFrequency = .2f;
+				if (numberFrequency < .4) {
+					numberFrequency = .4f;
 				}
 				powerupFrequency += .2f;
 				flyerSpeed += .03f;
