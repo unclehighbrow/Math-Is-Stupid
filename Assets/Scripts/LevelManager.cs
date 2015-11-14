@@ -278,6 +278,7 @@ public class LevelManager : MonoBehaviour {
 			}
 			currentOperand = operand;
 			calcText.text = currentTotal.ToString() + " " + operand;
+			deepThroat.GetComponentInChildren<TextMesh>().text = operand;
 			foreach (Text iOperand in operands.GetComponentsInChildren<Text>()) {
 				if (iOperand.text.Equals(operand)) {
 					iOperand.color = Color.yellow;

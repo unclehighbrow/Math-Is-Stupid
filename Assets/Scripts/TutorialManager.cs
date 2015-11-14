@@ -41,6 +41,12 @@ public class TutorialManager : MonoBehaviour {
 	AudioSource audioSource;
 	public AudioClip deepThroatTalk;
 	public AudioClip nixonTalk;
+	public AudioClip numberSound;
+	public AudioClip operandSound;
+	public AudioClip calculatingSound;
+	public AudioClip goalHit;
+	public AudioClip hurtSound;
+
 	
 	public void Start() {
 		realDeepThroat.speed = .035f;
@@ -141,6 +147,7 @@ public class TutorialManager : MonoBehaviour {
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		calcText.text = "4";
+		audioSource.PlayOneShot(numberSound);
 		StartCoroutine(DisplayLine("Now you have a number to do math with!", true, nixonTalk));
 		calcText.transform.Find("Arrow").gameObject.SetActive(true);
 		while (!next) {	yield return new WaitForEndOfFrame(); }
@@ -160,7 +167,9 @@ public class TutorialManager : MonoBehaviour {
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		StopCoroutine("GlowRepeat");
+		audioSource.PlayOneShot(operandSound);
 		calcText.text = "4 + ";
+		realDeepThroat.GetComponentInChildren<TextMesh>().text = "+";
 		plusOperand.transform.Find("PointerUI").gameObject.SetActive(false);
 		plusOperand.color = Color.yellow;
 		StartCoroutine(DisplayLine("Here comes a one!", false, nixonTalk));
@@ -205,6 +214,7 @@ public class TutorialManager : MonoBehaviour {
 			mathJuice.value -= .01f;
 			if (mathJuice.value <= 0) {
 				realDeepThroat.Shake();
+				audioSource.PlayOneShot(hurtSound);
 				yield return new WaitForSeconds(.5f);
 				mathJuice.value = 1;
 			}
@@ -228,17 +238,23 @@ public class TutorialManager : MonoBehaviour {
 	IEnumerator GoalMet() {
 		// set second var
 		calcText.text = "4 + 1";
+		audioSource.PlayOneShot(calculatingSound);
 		yield return new WaitForSeconds(.3f);
 		
 		// set equal
 		calcText.text = "4 + 1 =";
+		audioSource.PlayOneShot(calculatingSound);
 		yield return new WaitForSeconds(.3f);
 		
 		calcText.text = "4 + 1 = 5";
+		audioSource.PlayOneShot(calculatingSound);
 		yield return new WaitForSeconds(.3f);
 		
 		StartCoroutine("GlowRepeat", calcText);
 		StartCoroutine("GlowRepeat", goal1);
+
+		yield return new WaitForSeconds(.3f);
+		audioSource.PlayOneShot(goalHit);
 	}
 
 	public IEnumerator GlowRepeat(Text text) {
