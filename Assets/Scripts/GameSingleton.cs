@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
 using UnityEngine.SocialPlatforms;
 
 public class GameSingleton : Singleton<GameSingleton> {
@@ -17,6 +19,9 @@ public class GameSingleton : Singleton<GameSingleton> {
 	// Use this for initialization
 	void Awake () {
 		highScore = PlayerPrefs.GetInt("highScore", 0);
+		PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
+		PlayGamesPlatform.InitializeInstance(config);
+		PlayGamesPlatform.Activate();
 		Social.localUser.Authenticate(ProcessAuthentication);
 	}
 	
@@ -61,4 +66,11 @@ public class GameSingleton : Singleton<GameSingleton> {
 	public void ShowLeaderboardUI() {
 		Social.ShowLeaderboardUI();
 	}
+
+	public void ReportAchievement(string acheivement) {
+		Social.ReportProgress(acheivement, 100.0f, (bool success) => {
+			Debug.Log ("reporiting acheivement: " + acheivement);
+		});
+	}
+
 }

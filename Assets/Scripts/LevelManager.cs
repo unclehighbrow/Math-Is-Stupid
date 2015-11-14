@@ -271,6 +271,18 @@ public class LevelManager : MonoBehaviour {
 		if (!Util.IsEmpty(currentTotal)) {
 			if (!Util.IsEmpty(operand)) {
 				audioSource.PlayOneShot(operandSound);
+				if (operand == "+") {
+					GameSingleton.Instance.ReportAchievement(Constants.achievement_used_plus);
+				}
+				if (operand == "-") {
+					GameSingleton.Instance.ReportAchievement(Constants.achievement_used_minus);
+				}
+				if (operand == "*") {
+					GameSingleton.Instance.ReportAchievement(Constants.achievement_used_multiply);
+				}
+				if (operand == "/") {
+					GameSingleton.Instance.ReportAchievement(Constants.achievement_used_divide);
+				}
 			}
 			if (performingOperation && !Util.IsEmpty(operand)) { // perform operation now
 				StopCoroutine("PerformOperation");
@@ -412,6 +424,7 @@ public class LevelManager : MonoBehaviour {
 
 	IEnumerator StartGameCo() {	
 		if (!gameOvering) {
+			GameSingleton.Instance.ReportAchievement(Constants.achievement_started_the_game);
 			audioSource.PlayOneShot(startGameSound);
 			titleCanvas.blocksRaycasts = false;
 			calcText.text = "0";
