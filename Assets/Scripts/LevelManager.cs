@@ -77,6 +77,9 @@ public class LevelManager : MonoBehaviour {
 	public AudioClip hurtSound;
 	public AudioSource music;
 
+	Color transparentButton = new Color(1f, 1f, 1f, .39f);
+	Color transparentButtonPressed = new Color(.5f, .5f, .5f, .39f);
+
 	
 	private Vector2 GetGameView() {
 		System.Type T = System.Type.GetType("UnityEditor.GameView,UnityEditor");
@@ -282,9 +285,11 @@ public class LevelManager : MonoBehaviour {
 			foreach (Text iOperand in operands.GetComponentsInChildren<Text>()) {
 				if (iOperand.text.Equals(operand)) {
 					iOperand.color = Color.yellow;
+					iOperand.GetComponentInChildren<Image>().color = transparentButtonPressed;
 					StartCoroutine(Util.Glow(iOperand));
 				} else {
 					iOperand.color = Color.white;
+					iOperand.GetComponentInChildren<Image>().color = transparentButton;
 				}
 			}
 		}

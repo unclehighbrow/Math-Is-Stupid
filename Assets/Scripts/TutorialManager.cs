@@ -46,6 +46,9 @@ public class TutorialManager : MonoBehaviour {
 	public AudioClip calculatingSound;
 	public AudioClip goalHit;
 	public AudioClip hurtSound;
+		
+	Color transparentButton = new Color(1f, 1f, 1f, .39f);
+	Color transparentButtonPressed = new Color(.5f, .5f, .5f, .39f);
 
 	
 	public void Start() {
@@ -170,6 +173,7 @@ public class TutorialManager : MonoBehaviour {
 		audioSource.PlayOneShot(operandSound);
 		calcText.text = "4 + ";
 		realDeepThroat.GetComponentInChildren<TextMesh>().text = "+";
+		plusOperand.transform.Find("ButtonImage").GetComponent<Image>().color = transparentButtonPressed;
 		plusOperand.transform.Find("PointerUI").gameObject.SetActive(false);
 		plusOperand.color = Color.yellow;
 		StartCoroutine(DisplayLine("Here comes a one!", false, nixonTalk));
@@ -184,6 +188,9 @@ public class TutorialManager : MonoBehaviour {
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		StartCoroutine(DisplayLine("You gotta choose an operand each time, so choose carefully.", true, nixonTalk));
+		plusOperand.GetComponentInChildren<Image>().color = transparentButton;
+		realDeepThroat.GetComponentInChildren<TextMesh>().text = "";
+
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
 		plusOperand.color = Color.white;
