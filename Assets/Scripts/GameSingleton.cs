@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SocialPlatforms;
+using UnityEngine.SceneManagement;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
-using UnityEngine.SocialPlatforms;
 
 public class GameSingleton : Singleton<GameSingleton> {
 
@@ -13,7 +14,7 @@ public class GameSingleton : Singleton<GameSingleton> {
 
 	public void StartGame() {
 		score = 0;
-		Application.LoadLevel("Space");
+		SceneManager.LoadScene("Space");
 	}
 
 	// Use this for initialization
@@ -72,5 +73,4 @@ public class GameSingleton : Singleton<GameSingleton> {
 			Debug.Log ("reporiting acheivement: " + acheivement);
 		});
 	}
-
 }

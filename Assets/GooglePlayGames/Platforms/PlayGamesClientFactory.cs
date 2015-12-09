@@ -27,11 +27,11 @@ namespace GooglePlayGames
         {
             if (Application.isEditor)
             {
-                Logger.d("Creating IPlayGamesClient in editor, using DummyClient.");
+				OurUtils.Logger.d("Creating IPlayGamesClient in editor, using DummyClient.");
                 return new GooglePlayGames.BasicApi.DummyClient();
             }
             #if UNITY_ANDROID
-                Logger.d("Creating Android IPlayGamesClient Client");
+				OurUtils.Logger.d("Creating Android IPlayGamesClient Client");
                 return new GooglePlayGames.Native.NativeClient(config,
                     new GooglePlayGames.Android.AndroidClient());
             #elif (UNITY_IPHONE && !NO_GPGS)

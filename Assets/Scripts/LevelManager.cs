@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
@@ -75,7 +76,10 @@ public class LevelManager : MonoBehaviour {
 	public AudioClip doingMathSound;
 	public AudioClip goalHitSound;
 	public AudioClip hurtSound;
+
+	bool playingPunkMusic;
 	public AudioSource music;
+	public AudioSource punkMusic;
 
 	Color transparentButton = new Color(1f, 1f, 1f, .39f);
 	Color transparentButtonPressed = new Color(.5f, .5f, .5f, .39f);
@@ -128,7 +132,9 @@ public class LevelManager : MonoBehaviour {
 			yield return null;
 		} else {
 			gameOvering = true;
-			music.Stop();
+			if (!playingPunkMusic) {
+				music.Stop();
+			}
 			audioSource.PlayOneShot(gameOverSound);
 			HandleOperand("");
 			gameStarted = false;
@@ -452,14 +458,22 @@ public class LevelManager : MonoBehaviour {
 			}
 			yield return new WaitForSeconds(1);
 			spawner.StartGame();
-			music.Play();
+			punkMusic.Stop();
+			music.Stop();
+			if (UnityEngine.Random.Range(0,20) == 1) { // (1==1) { 
+				punkMusic.Play();
+				playingPunkMusic = true;
+			} else {
+				music.Play();
+				playingPunkMusic = false;
+			}
 			gameStarted = true;
 		}
 		yield return null;
 	}
 
 	public void LoadTutorial() {
-		Application.LoadLevel("Tutorial");
+		SceneManager.LoadScene("Tutorial");
 	}
 
 

@@ -287,7 +287,7 @@ namespace GooglePlayGames.BasicApi
 
         private static void LogUsage()
         {
-            Logger.d("Received method call on DummyClient - using stub implementation.");
+           // Logger.d("Received method call on DummyClient - using stub implementation.");
         }
     }
 }
