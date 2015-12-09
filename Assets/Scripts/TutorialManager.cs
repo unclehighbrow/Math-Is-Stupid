@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoBehaviour {
 	
@@ -211,7 +211,7 @@ public class TutorialManager : MonoBehaviour {
 		StartCoroutine(DisplayLine("I don't know, you'll probably figure the rest out. Just play the game already!", true, nixonTalk));
 		while (!next) {	yield return new WaitForEndOfFrame(); }
 
-		Application.LoadLevel("Space");
+		SceneManager.LoadScene("Space");
 
 		yield return null;
 	}
