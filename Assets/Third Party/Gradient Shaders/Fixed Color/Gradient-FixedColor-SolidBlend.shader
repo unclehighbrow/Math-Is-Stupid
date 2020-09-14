@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "Gradient/Fixed Color/Solid Blend" {
 
 	//Set up the shader to receive external inputs from Unity
@@ -59,7 +61,7 @@ Shader "Gradient/Fixed Color/Solid Blend" {
 			//Vertex shader
 			VertexToFragment vert(AppData v) {
 				VertexToFragment o;							//Create a data structure to pass to fragment shader
-				o.pos = mul(UNITY_MATRIX_MVP,v.vertex);		//Include influence of Modelview + Projection matrices
+				o.pos = UnityObjectToClipPos(v.vertex);		//Include influence of Modelview + Projection matrices
 							//o.uv = v.texcoord.xy;						//Send texture coords from unit 0 to fragment shader
 							//o.uv2 = v.texcoord1.xy;					//Send texture coords from unit 1 to fragment shader
 							//o.color = v.color;						//Send interpolated vertex color to fragment shader

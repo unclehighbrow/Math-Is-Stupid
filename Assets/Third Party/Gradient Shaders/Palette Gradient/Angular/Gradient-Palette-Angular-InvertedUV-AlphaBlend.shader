@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "Gradient/Palette/Angular/Inverted UV/Alpha Blend" {
 
 	//Set up the shader to receive external inputs from Unity
@@ -66,7 +68,7 @@ Shader "Gradient/Palette/Angular/Inverted UV/Alpha Blend" {
 			//Vertex shader
 			VertexToFragment vert(AppData v) {
 				VertexToFragment o;							//Create a data structure to pass to fragment shader
-				o.pos = mul(UNITY_MATRIX_MVP,v.vertex);		//Include influence of Modelview + Projection matrices
+				o.pos = UnityObjectToClipPos(v.vertex);		//Include influence of Modelview + Projection matrices
 				//o.uv = TRANSFORM_TEX(v.texcoord,_PaletteTex);//Send texture coords from unit 0 to fragment shader
 				//o.uv = v.texcoord.xy;
 				v.texcoord.xy = half2((v.texcoord.x+_UVXOffset),(v.texcoord.y+_UVYOffset));

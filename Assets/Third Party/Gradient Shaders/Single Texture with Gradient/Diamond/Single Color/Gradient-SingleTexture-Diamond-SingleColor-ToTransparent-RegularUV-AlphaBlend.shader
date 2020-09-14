@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "Gradient/Single Texture/Diamond/Single-Color/To Transparent/Regular UV/Alpha Blend" {
 
 	//"Texture+Color" shader with "Solid" blending
@@ -79,7 +81,7 @@ Shader "Gradient/Single Texture/Diamond/Single-Color/To Transparent/Regular UV/A
 			//Vertex shader
 			VertexToFragment vert(AppData v) {
 				VertexToFragment o;							//Create a data structure to pass to fragment shader
-				o.pos = mul(UNITY_MATRIX_MVP,v.vertex);		//Include influence of Modelview + Projection matrices
+				o.pos = UnityObjectToClipPos(v.vertex);		//Include influence of Modelview + Projection matrices
 				o.uv = TRANSFORM_TEX(v.texcoord,_MainTex);//Send texture coords from unit 0 to fragment shader
 				//o.uv = v.texcoord.xy;
 				v.texcoord1.xy = half2((v.texcoord1.x+_UVXOffset)*_UVXScale,(v.texcoord1.y+_UVYOffset)*_UVYScale);
